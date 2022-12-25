@@ -95,14 +95,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DeferredTasks.cpp" />
+    <ClCompile Include="AsyncTasks.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PromotionService.cpp" />
     <ClCompile Include="QtClasses.cpp" />
     <ClCompile Include="UniqueThreadAccessor.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="DeferredTasks.h" />
+    <QtMoc Include="AsyncTasks.h" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="FutureWaiter.h" />

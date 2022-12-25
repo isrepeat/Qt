@@ -1,5 +1,4 @@
 #include <QtCore/QCoreApplication>
-#include "DeferredTasks.h"
 #include "QtClasses.h"
 #include <Windows.h>
 #include <QTimer>

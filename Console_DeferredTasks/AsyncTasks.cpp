@@ -1,16 +1,77 @@
-#include "DeferredTasks.h"
+#include "AsyncTasks.h"
 #include <Windows.h>
 #include <thread>
 #include <future>
 #include <QDebug>
 
 
-DeferredTasks::DeferredTasks() 
+
+AsyncTask::AsyncTask()
+	: privateSignals{ new PrivateSignals() }
+{}
+
+AsyncTask::AsyncTask(std::string name, std::function<void()> task, bool blockingTask, int startAfterMs) : AsyncTask() {
+	SetTask(name, task, blockingTask, startAfterMs);
+}
+
+void AsyncTask::SetTask(std::string name, std::function<void()> task, bool blockingTask, int startAfterMs) {
+	std::lock_guard lk{ mx };
+	this->name = name;
+	this->task = task;
+	this->blockingTask = blockingTask;
+	this->startAfterMs = startAfterMs;
+}
+
+
+void AsyncTask::Activate() {
+	std::lock_guard lk{ mx };
+	activated = true;
+}
+
+std::function<void()> AsyncTask::GetTask() {
+	return task;
+}
+
+bool AsyncTask::IsBlockingTask() {
+	return blockingTask;
+}
+
+int AsyncTask::GetStartOffset() {
+	return startAfterMs;
+}
+
+void AsyncTask::BlockingTaskComplete() {
+	std::lock_guard lk{ mx };
+	if (!blockingTask || !activated || wasEmitted)
+		return;
+
+	wasEmitted = true;
+	emit privateSignals->BlockingTaskCompleted();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AsyncTasks::AsyncTasks()
 	: privateSignals{ new PrivateSignals() }
 {
 	connect(privateSignals.get(), &PrivateSignals::TasksFinished, this, [this] {
 		inProgress = false;
-		deferredTasks.clear();
+		asyncTasks.clear();
 
 		if (canceled) {
 			emit TasksFailed();
@@ -31,8 +92,8 @@ DeferredTasks::DeferredTasks()
 		});
 }
 
-DeferredTasks::~DeferredTasks() {
-	qDebug() << "DeferredTasks::~DeferredTasks() ...";
+AsyncTasks::~AsyncTasks() {
+	qDebug() << "AsyncTasks::~AsyncTasks() ...";
 	this->CancelTasks();
 
 
@@ -42,18 +103,18 @@ DeferredTasks::~DeferredTasks() {
 	//	std::this_thread::sleep_for(std::chrono::milliseconds{ 100 });
 	//}
 
-	qDebug() << "--- wait finish deferred tasks thread ...";
+	qDebug() << "--- wait finish async tasks thread ...";
 	std::unique_lock<std::mutex> lk{ mxTask };
-	qDebug() << "--- deferred tasks thread finished";
+	qDebug() << "--- async tasks thread finished";
 
-	qDebug() << "DeferredTasks::~DeferredTasks() success";
+	qDebug() << "AsyncTasks::~AsyncTasks() success";
 }
 
-void DeferredTasks::ExecuteInOtherThread() {
+void AsyncTasks::Execute() {
 	if (inProgress)
 		return;
 
-	if (deferredTasks.size() == 0)
+	if (asyncTasks.size() == 0)
 		return;
 
 	canceled = false;
@@ -63,15 +124,19 @@ void DeferredTasks::ExecuteInOtherThread() {
 		inProgress = true;
 
 		int numTask = 0;
-		for (auto& deferredTask : deferredTasks) {
+		for (auto& asyncTask : asyncTasks) {
 			// Waiting part
-			qDebug() << "\ncheck blocking deferred task ...";
-			if (deferredTask->blockingTask) {
+			qDebug() << "\ncheck blocking async task ...";
+			if (asyncTask->IsBlockingTask()) {
 				qDebug() << " --- block ...";
 				taskLocker.Lock();	// may block thread for a LONG TIME (wait completed signal from previous blocking task)
 				qDebug() << " --- unblock";
-				deferredTask->blockSignals(false); // allow emit signals from this task
+				asyncTask->Activate();
+				//asyncTask->blockSignals(false); // allow emit signals from this task
 			}
+
+
+
 			
 
 			//if (currentTask) {
@@ -87,11 +152,11 @@ void DeferredTasks::ExecuteInOtherThread() {
 			Sleep(10);
 			Sleep(10);
 
-			if (deferredTask->startAfterMs > 0 && !canceled) {
+			if (asyncTask->GetStartOffset() > 0 && !canceled) {
 				qDebug() << "waiting ...";
 				std::mutex m;
 				std::unique_lock<std::mutex> lk(m);
-				cvShiftStarting.wait_for(lk, std::chrono::milliseconds{ deferredTask->startAfterMs });
+				cvShiftStarting.wait_for(lk, std::chrono::milliseconds{ asyncTask->GetStartOffset() });
 			}
 
 			// Executing part
@@ -101,9 +166,18 @@ void DeferredTasks::ExecuteInOtherThread() {
 				return;
 			}
 
-			if (deferredTask->task) {
-				qDebug() << "perform deferred task via signal ...";
-				if (auto ex_ptr = emit privateSignals->PerformTask(&deferredTask->task)) {
+			if (asyncTask->name == "Task 2" && !taskLocker.IsLocked()) {
+				qDebug() << "FAIL ...";
+				qDebug() << "FAIL ...";
+				qDebug() << "FAIL ...";
+				qDebug() << "FAIL ...";
+				qDebug() << "FAIL ...";
+				qDebug() << "FAIL ...";
+			}
+
+			if (asyncTask->GetTask()) {
+				qDebug() << "perform async task via signal ...";
+				if (auto ex_ptr = emit privateSignals->PerformTaskSynchronously(&asyncTask->GetTask())) {
 					qDebug() << "task throw exception";
 					std::rethrow_exception(ex_ptr);
 				}
@@ -117,7 +191,10 @@ void DeferredTasks::ExecuteInOtherThread() {
 	connect(tasksCompletedWaiter.get(), &FutureWaiter<void>::Ready, this, [this] {
 		// Thread finished successfully or throwed exception ...
 		if (taskLocker.IsLocked()) { // if last was blocking task and it is still locked then wait completed signal
-			connect(deferredTasks.back().get(), &QDeferredTask::BlockingTaskCompleted, this, [this] {
+			//connect(asyncTasks.back().get(), &AsyncTask::BlockingTaskCompleted, this, [this] {
+			//	emit privateSignals->TasksFinished();
+			//	});
+			asyncTasks.back()->ConnectBlockingTaskCompletedHandler(this, [this] {
 				emit privateSignals->TasksFinished();
 				});
 		}
@@ -130,13 +207,13 @@ void DeferredTasks::ExecuteInOtherThread() {
 }
 
 
-void DeferredTasks::CancelTasks() {
-	qDebug() << "DeferredTasks::CancelTasks() ...";
+void AsyncTasks::CancelTasks() {
+	qDebug() << "AsyncTasks::CancelTasks() ...";
 	if (inProgress) {
 		canceled = true;
 		taskLocker.Unlock();
 		cvShiftStarting.notify_all();
 
 	}
-	qDebug() << "DeferredTasks::CancelTasks() success";
+	qDebug() << "AsyncTasks::CancelTasks() success";
 }

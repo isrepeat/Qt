@@ -15,31 +15,59 @@ void Request::Get() {
 		}).detach();
 }
 
+void Request::Get(std::function<void()> callback) {
+	std::thread([this, callback] {
+		std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+		callback();
+		callback();
+		callback();
+		}).detach();
+}
+
 
 Prototype::Prototype(QObject* parrent) : QObject(parrent) {
 	
-	deferredTasks.ConnectTaskExecuter(this, &Prototype::TaskExecuter);
-	connect(&deferredTasks, &DeferredTasks::TasksFailed, this, &Prototype::TasksFailedHandler);
-	connect(&deferredTasks, &DeferredTasks::TasksCompleted, this, &Prototype::TasksCompletedHandler);
+	asyncTasks.ConnectTaskExecuter(this, &Prototype::TaskExecuter);
+	connect(&asyncTasks, &AsyncTasks::TasksFailed, this, &Prototype::TasksFailedHandler);
+	connect(&asyncTasks, &AsyncTasks::TasksCompleted, this, &Prototype::TasksCompletedHandler);
 
 
-	deferredTasks.AddBlockingTask([this] {
+	asyncTasks.AddBlockingTask("Task 1", [this] {
 		request.Get();
 		}
 	,&request, &Request::Done);
 
-	deferredTasks.AddBlockingTask([this] {
-		request.Get();
-		}
-	,&request, &Request::Done);
-
-	deferredTasks.AddBlockingTask([this] {
+	asyncTasks.AddBlockingTask("Task 2", [this] {
 		request.Get();
 		}
 	,&request, &Request::Done);
 
 
-	deferredTasks.ExecuteInOtherThread();
+	//asyncTasks.AddBlockingTask([this] (H::Signal completedSignal) {
+	//	request.Get([this, completedSignal] {
+	//		completedSignal();
+	//		});
+	//	});
+
+	//asyncTasks.AddBlockingTask([this](H::Signal completedSignal) {
+	//	request.Get([this, completedSignal] {
+	//		completedSignal();
+	//		});
+	//	});
+
+
+	//asyncTasks.AddBlockingTask("Task 3", [this] {
+	//	request.Get();
+	//	}
+	//,&request, &Request::Done);
+
+	//asyncTasks.AddBlockingTask("Task 4", [this] {
+	//	request.Get();
+	//	}
+	//, &request, &Request::Done);
+
+
+	asyncTasks.Execute();
 }
 
 

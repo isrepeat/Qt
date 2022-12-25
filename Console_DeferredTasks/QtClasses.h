@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include <QObject>
-#include "DeferredTasks.h"
+#include "AsyncTasks.h"
 
 
 class Request : public QObject {
@@ -13,6 +13,7 @@ public:
 	}
 
 	void Get();
+	void Get(std::function<void()> callback);
 
 signals:
 	void Done();
@@ -34,5 +35,5 @@ private slots:
 
 private:
 	Request request;
-	DeferredTasks deferredTasks;
+	AsyncTasks asyncTasks;
 };
