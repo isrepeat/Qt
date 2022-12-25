@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.33130.400
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Console", "Console\Console.vcxproj", "{B661ACB3-8FB1-42A7-B60D-02CC15DDE98C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Console_DeferredTasks", "Console_DeferredTasks\Console_DeferredTasks.vcxproj", "{476C442E-768E-497B-BD91-B3DFD30051FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -15,6 +17,10 @@ Global
 		{B661ACB3-8FB1-42A7-B60D-02CC15DDE98C}.Debug|x64.Build.0 = Debug|x64
 		{B661ACB3-8FB1-42A7-B60D-02CC15DDE98C}.Release|x64.ActiveCfg = Release|x64
 		{B661ACB3-8FB1-42A7-B60D-02CC15DDE98C}.Release|x64.Build.0 = Release|x64
+		{476C442E-768E-497B-BD91-B3DFD30051FD}.Debug|x64.ActiveCfg = Debug|x64
+		{476C442E-768E-497B-BD91-B3DFD30051FD}.Debug|x64.Build.0 = Debug|x64
+		{476C442E-768E-497B-BD91-B3DFD30051FD}.Release|x64.ActiveCfg = Release|x64
+		{476C442E-768E-497B-BD91-B3DFD30051FD}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
