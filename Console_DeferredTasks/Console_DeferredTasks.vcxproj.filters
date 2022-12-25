@@ -38,6 +38,9 @@
     <ClCompile Include="UniqueThreadAccessor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AsyncTask.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="AsyncTasks.h">
@@ -47,6 +50,9 @@
       <Filter>Source Files</Filter>
     </QtMoc>
     <QtMoc Include="QtClasses.h">
+      <Filter>Source Files</Filter>
+    </QtMoc>
+    <QtMoc Include="AsyncTask.h">
       <Filter>Source Files</Filter>
     </QtMoc>
   </ItemGroup>

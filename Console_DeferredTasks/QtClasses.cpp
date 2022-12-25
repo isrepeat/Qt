@@ -11,7 +11,6 @@ void Request::Get() {
 		std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 		emit Done();
 		emit Done();
-		emit Done();
 		}).detach();
 }
 
@@ -43,25 +42,25 @@ Prototype::Prototype(QObject* parrent) : QObject(parrent) {
 	,&request, &Request::Done);
 
 
-	//asyncTasks.AddBlockingTask([this] (H::Signal completedSignal) {
-	//	request.Get([this, completedSignal] {
-	//		completedSignal();
-	//		});
-	//	});
+	asyncTasks.AddBlockingTask("Task 3", [this] (H::Signal completedSignal) {
+		request.Get([this, completedSignal] {
+			completedSignal();
+			});
+		});
 
-	//asyncTasks.AddBlockingTask([this](H::Signal completedSignal) {
-	//	request.Get([this, completedSignal] {
-	//		completedSignal();
-	//		});
-	//	});
+	asyncTasks.AddBlockingTask("Task 4", [this](H::Signal completedSignal) {
+		request.Get([this, completedSignal] {
+			completedSignal();
+			});
+		});
 
 
-	//asyncTasks.AddBlockingTask("Task 3", [this] {
-	//	request.Get();
-	//	}
-	//,&request, &Request::Done);
+	asyncTasks.AddBlockingTask("Task 5", [this] {
+		request.Get();
+		}
+	,&request, &Request::Done);
 
-	//asyncTasks.AddBlockingTask("Task 4", [this] {
+	//asyncTasks.AddBlockingTask("Task 6", [this] {
 	//	request.Get();
 	//	}
 	//, &request, &Request::Done);
