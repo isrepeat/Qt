@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Console", "Console\Console.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Console_DeferredTasks", "Console_DeferredTasks\Console_DeferredTasks.vcxproj", "{476C442E-768E-497B-BD91-B3DFD30051FD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Console_QueuedSignal", "Console_QueuedSignal\Console_QueuedSignal.vcxproj", "{0771A27B-557E-4B90-8FAF-D7AD0D6C34A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,10 @@ Global
 		{476C442E-768E-497B-BD91-B3DFD30051FD}.Debug|x64.Build.0 = Debug|x64
 		{476C442E-768E-497B-BD91-B3DFD30051FD}.Release|x64.ActiveCfg = Release|x64
 		{476C442E-768E-497B-BD91-B3DFD30051FD}.Release|x64.Build.0 = Release|x64
+		{0771A27B-557E-4B90-8FAF-D7AD0D6C34A3}.Debug|x64.ActiveCfg = Debug|x64
+		{0771A27B-557E-4B90-8FAF-D7AD0D6C34A3}.Debug|x64.Build.0 = Debug|x64
+		{0771A27B-557E-4B90-8FAF-D7AD0D6C34A3}.Release|x64.ActiveCfg = Release|x64
+		{0771A27B-557E-4B90-8FAF-D7AD0D6C34A3}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
