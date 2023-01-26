@@ -3,6 +3,7 @@
 #include <QPushButton>
 #include <QTextEdit>
 #include <QWidget>
+#include <QPixmap>
 #include <QLabel>
 #include <QTimer>
 
@@ -16,8 +17,17 @@ public:
     ~MainWindow() = default;
 
 private:
+    QPixmap GetCursorInfo();
+
+private:
+    bool showNativeCursor = true;
+
+    //auto dpiForSystem = GetDpiForSystem();
+    const float dpiScaleFactorSystem;
+
     QLabel* label;
     QTimer* timer;
     QTextEdit* textEdit;
     QPushButton* pushBtn;
+    QPixmap pixmapCursor;
 };

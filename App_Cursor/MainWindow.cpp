@@ -1,60 +1,41 @@
 #include "MainWindow.h"
-#include <QApplication>
+#include <Windows.h>
+#include <QByteArray>
 #include <QMimeData>
+#include <QProcess>
 #include <QLayout>
+#include <QBuffer>
 #include <QDebug>
 #include <QTimer>
-#include <thread>
-
-#include <Windows.h>
-#include <QProcess>
 #include <QtWin>
+#include <thread>
+#include <vector>
 
-// 0x1e1314fb
+struct CursorInfo {
+	int hCursor = 0;
+	std::vector<uint8_t> image;
+};
 
-QPixmap getMouseCursorIconWin()
-{
-	// Get information about the global cursor.
-	CURSORINFO ci;
-	ci.cbSize = sizeof(ci);
-	GetCursorInfo(&ci);
-
-	qDebug() << "hCursor = " << ci.hCursor;
-
-	// Get Cursor Size
-	int cursorWidth = GetSystemMetrics(SM_CXCURSOR) + 10;
-	int cursorHeight = GetSystemMetrics(SM_CYCURSOR) + 10;
-
-	// Get your device contexts.
-	HDC hdcScreen = GetDC(NULL);
-	HDC hdcMem = CreateCompatibleDC(hdcScreen);
-
-	// Create the bitmap to use as a canvas.
-	HBITMAP hbmCanvas = CreateCompatibleBitmap(hdcScreen, cursorWidth, cursorHeight);
-
-	// Select the bitmap into the device context.
-	HGDIOBJ hbmOld = SelectObject(hdcMem, hbmCanvas);
-
-	// Draw the cursor into the canvas.
-	//DrawIcon(hdcMem, 0, 0, ci.hCursor);
-	DrawIcon(hdcMem, 0, 0, (HICON)0x38d047e);
-
-	// Convert to QPixmap
-	QPixmap cursorPixmap = QtWin::fromHBITMAP(hbmCanvas, QtWin::HBitmapAlpha);
-
-	
-
-	// Clean up after yourself.
-	SelectObject(hdcMem, hbmOld);
-	DeleteObject(hbmCanvas);
-	DeleteDC(hdcMem);
-	ReleaseDC(NULL, hdcScreen);
-
-	return cursorPixmap;
+std::vector<uint8_t> PixmapToVectorBytes(const QPixmap& pixmap) {
+	QByteArray bytes;
+	QBuffer buffer(&bytes);
+	buffer.open(QIODevice::WriteOnly);
+	pixmap.save(&buffer, "PNG");
+	return { bytes.begin(), bytes.end() };
 }
 
+QPixmap PixmapFromVectorBytes(const std::vector<uint8_t>& bytes) {
+	QPixmap pixmap;
+	pixmap.loadFromData(bytes.data(), bytes.size());
+	return pixmap;
+}
+
+//CursorInfo g_cursorInfo;
+
+
 MainWindow::MainWindow(QWidget* parent) 
-	: QMainWindow(parent) 
+	: QMainWindow(parent)
+	, dpiScaleFactorSystem{ GetDpiForSystem() / 96.0f }
 {
 	QWidget* centralWidget = new QWidget(this);
 	centralWidget->setStyleSheet("QWidget{border: 2px solid green;}");
@@ -67,14 +48,30 @@ MainWindow::MainWindow(QWidget* parent)
 	label->setStyleSheet("QLabel{border: 2px solid red; background-color: gray;}");
 	vLayout->addWidget(label);
 
+	pushBtn = new QPushButton("Switch cursor");
+	//pushBtn->setStyleSheet("QPushButton{color: brown; border: 2px solid brown;}");
+	vLayout->addWidget(pushBtn);
+
 
 	timer = new QTimer(this);
 	connect(timer, &QTimer::timeout, this, [this] {
-		label->setPixmap(getMouseCursorIconWin());
-		this->setCursor(getMouseCursorIconWin());
+		//auto cursorInfo = GetCursorInfo();
+		//label->setPixmap(PixmapFromVectorBytes(cursorInfo.image));
+
+		//auto pixmapCursor = GetCursorInfo();
+
+		if (showNativeCursor) {
+			GetCursorInfo();
+		}
+		else {
+			QCursor cursror(this->pixmapCursor, 0, 0);
+			this->setCursor(cursror);
+		}
+
+		label->setPixmap(this->pixmapCursor);
 		});
 
-	timer->start(100);
+	timer->start(500);
 	
 
 	//QWidget* innerWidget = new QWidget(this);
@@ -95,26 +92,82 @@ MainWindow::MainWindow(QWidget* parent)
 	//hhLayout->addWidget(lbA);
 
 
-	//auto pbA = new QPushButton("Some button text");
-	//pbA->setStyleSheet("QPushButton{color: brown; border: 2px solid brown;}");
-	////hhLayout2->setAlignment(Qt::AlignBottom);
-	//hhLayout2->addWidget(pbA);
-
 
 	////vvLayout->addSpacing(100);
 	//vvLayout->addLayout(hhLayout);
 	//vvLayout->addLayout(hhLayout2);
 
 
-	//connect(pbA, &QPushButton::clicked, [this] {
-	//	//Beep(500, 500);
-	//	//Sleep(1500);
-	//	QString program = qApp->arguments()[0];
-	//	QStringList arguments = qApp->arguments().mid(1); // remove the 1st argument - the program name
-	//	QProcess::startDetached(program, arguments);
-	//	//qApp->exit(0);
-	//	exit(0);
-	//	Sleep(10000);
-	//	int xxx = 9;
-	//	});
+	connect(pushBtn, &QPushButton::clicked, [this] {
+		showNativeCursor = !showNativeCursor;
+		pushBtn->setText(QString{ "showNativeCursor = %1" }.arg(showNativeCursor ? "true" : "false"));
+		});
+}
+
+
+QPixmap MainWindow::GetCursorInfo() {
+	// Get information about the global cursor.
+	CURSORINFO ci;
+	ci.cbSize = sizeof(ci);
+	::GetCursorInfo(&ci);
+
+	//auto logicalDpiX = this->logicalDpiX();
+	//auto logicalDpiY = this->logicalDpiY();
+	//auto physicalDpiX = this->physicalDpiX();
+	//auto physicalDpiY = this->physicalDpiY();
+	auto dpi = devicePixelRatio();
+	auto qtDpi = devicePixelRatioF();
+	float dtDpi = qtDpi / dpiScaleFactorSystem;
+
+	// Get Cursor Size.
+	//int cursorWidth = GetSystemMetrics(SM_CXCURSOR) * dtDpi;
+	//int cursorHeight = GetSystemMetrics(SM_CYCURSOR) * dtDpi;
+	int cursorWidth = GetSystemMetrics(SM_CXCURSOR) + 100;
+	int cursorHeight = GetSystemMetrics(SM_CYCURSOR) + 100;
+	//int cursorWidth = GetSystemMetrics(SM_CXCURSOR);
+	//int cursorHeight = GetSystemMetrics(SM_CYCURSOR);
+
+	// Get your device contexts.
+	HDC hdcScreen = GetDC(NULL);
+	HDC hdcMem = CreateCompatibleDC(hdcScreen);
+
+	// Create the bitmap to use as a canvas.
+	HBITMAP hbmCanvas = CreateCompatibleBitmap(hdcScreen, cursorWidth, cursorHeight);
+
+	// Select the bitmap into the device context.
+	HGDIOBJ hbmOld = SelectObject(hdcMem, hbmCanvas);
+
+	// Draw the cursor into the canvas.
+	DrawIcon(hdcMem, 0, 0, ci.hCursor);
+
+	// Convert to QPixmap.
+	QPixmap cursorPixmap = QtWin::fromHBITMAP(hbmCanvas, QtWin::HBitmapNoAlpha);
+
+	// Clean up after yourself.
+	SelectObject(hdcMem, hbmOld);
+	DeleteObject(hbmCanvas);
+	DeleteDC(hdcMem);
+	ReleaseDC(NULL, hdcScreen);
+
+
+	//g_cursorInfo = CursorInfo{ reinterpret_cast<int>(ci.hCursor), PixmapToVectorBytes(cursorPixmap) };
+	////return CursorInfo{ reinterpret_cast<int>(ci.hCursor), PixmapToVectorBytes(cursorPixmap) };
+
+	//return g_cursorInfo;
+	//return cursorPixmap;
+
+	auto image = PixmapToVectorBytes(cursorPixmap);
+	auto pixmap = PixmapFromVectorBytes(image);
+
+	auto w = pixmap.width();
+	auto h = pixmap.height();
+	
+
+	
+
+	//this->pixmapCursor = pixmap.scaled(float(cursorWidth) / dpi, float(cursorHeight) / dpi, Qt::AspectRatioMode::KeepAspectRatio);
+	this->pixmapCursor = pixmap.scaled(cursorWidth / qtDpi, cursorHeight / qtDpi);
+	//this->pixmapCursor = pixmap.scaled(24, 24);
+	//this->pixmapCursor = pixmap;
+	return {};
 }

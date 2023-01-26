@@ -8,6 +8,9 @@
 
 int main(int argc, char **argv)
 {
+    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+
     QApplication app(argc, argv);
 
     auto window = new MainWindow();
