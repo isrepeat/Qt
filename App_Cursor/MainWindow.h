@@ -5,7 +5,15 @@
 #include <QWidget>
 #include <QPixmap>
 #include <QLabel>
+#include <QPaintEvent>
 #include <QTimer>
+
+
+struct Cursor {
+    QPixmap pixmapCursor;
+    int hotX = 0;
+    int hotY = 0;
+};
 
 
 class MainWindow : public QMainWindow
@@ -14,7 +22,7 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget* parent = 0);
-    ~MainWindow() = default;
+    ~MainWindow();
 
 private:
     QPixmap GetCursorInfo();
@@ -25,9 +33,16 @@ private:
     //auto dpiForSystem = GetDpiForSystem();
     const float dpiScaleFactorSystem;
 
+
+    void paintEvent(QPaintEvent* event) final;
+
     QLabel* label;
     QTimer* timer;
     QTextEdit* textEdit;
     QPushButton* pushBtn;
-    QPixmap pixmapCursor;
+    Cursor myCursor;
+
+    unsigned long long gdiplusToken;
+    
+    //Gdiplus::GdiplusStartupInput gdiplusStartupInput;
 };
