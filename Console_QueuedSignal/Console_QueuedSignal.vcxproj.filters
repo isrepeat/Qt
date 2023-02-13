@@ -29,9 +29,21 @@
     <ClCompile Include="QueuedSignal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Bar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Foo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="QueuedSignal.h">
+      <Filter>Source Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Foo.h">
+      <Filter>Source Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Bar.h">
       <Filter>Source Files</Filter>
     </QtMoc>
   </ItemGroup>
