@@ -12,13 +12,11 @@
 //}
 
 Temp::Temp() {
-	//QtConnection::Connect(this, &Temp::Error, this, [](int value) {
-	//	return 1488;
-	//	});
+	QtConnection::Connect(this, &Temp::ErrorPrivate, this, [](int value) {
+		return value / 100.0f;
+		});
 
-	//QtConnection::Connect(this, &Temp::Hello, &second, &Second::MySlot);
-	QtConnection::Connect(this, &Temp::Error, &second, &Second::MySlot2);
-
+	//QtConnection::Connect(this, &Temp::Error, &second, &Second::ErrorSlot);
 }
 
 void Temp::EmitSignal() {
@@ -29,7 +27,8 @@ void Temp::EmitSignal() {
 
 	auto th = std::thread([this] {
 		Sleep(500);
-		auto res = emit Error(17);
+		//auto res = emit ErrorPublic(911);
+		auto res = emit ErrorPrivate(1488);
 		Sleep(500);
 		});
 
@@ -40,10 +39,7 @@ void Temp::EmitSignal() {
 }
 
 
-int Second::MySlot(int value) {
-	return 3333;
-}
-
-int Second::MySlot2(int value) {
-	return 911;
+void Second::ErrorSlot(int value) {
+	return;
+	//return 911;
 }
