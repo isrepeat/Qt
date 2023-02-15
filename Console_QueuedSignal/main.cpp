@@ -24,6 +24,11 @@ int main(int argc, char *argv[])
 
     QtConnection::Connect(&temp, &Temp::ErrorPublic, &second, &Second::ErrorSlot);
 
+
+    QObject::connect(&temp, &Temp::ErrorPrivate, &temp, [=](int) {
+        }, Qt::QueuedConnection);
+
+
     QTimer::singleShot(600, [&temp] {
         temp.EmitSignal();
         });
