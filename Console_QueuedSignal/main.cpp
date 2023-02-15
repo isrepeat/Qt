@@ -1,64 +1,36 @@
 #include <QtCore/QCoreApplication>
-#include "QueuedSignal.h"
 #include <Windows.h>
 #include <string>
-
-//enum Type {
-//    Auto = 11,
-//    Direct = 22,
-//    Queued = 33,
-//    Blocking = 44
-//};
-//
-//
-//template <Type defaultConnectionType = Type::Auto>
-//class Temp {
-//public:
-//    Temp() = default;
-//
-//    template <typename Fn>
-//    void Connect(Fn func) {
-//        this->Connect(func, defaultConnectionType);
-//    }
-//
-//
-//protected:
-//    template <typename Fn>
-//    void Connect(Fn func, Type connectionType) {
-//        func();
-//        OutputDebugStringA(("type = " + std::to_string(connectionType) + "\n").c_str());
-//    }
-//};
+#include <any>
+#include <variant>
+#include <QTimer>
+#include <QDebug>
+#include "Foo.h"
+#include "Bar.h"
 
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    //Temp temp;
 
-    //temp.Connect([] {});
-    //temp.Connect([] {}, Type::Blocking);
-
-    auto foo = new Foo();
-    auto bar = new Bar();
-
-    ////QObject::connect(foo, &FooPrivateSignals::Error, [] {
-    ////    qDebug() << "GOT !!!";
-    ////    });
-
-    //foo->Connect(&FooPrivateSignals::Error, [] {
-    //    qDebug() << "GOT !!!";
+    Second second;
+    Temp temp;
+    
+    //QtConnection::Connect(&temp, &Temp::ErrorPublic, &temp, [](int value) {
+    //    return value / 100.0f;
     //    });
 
-    //foo->Connect(&FooPrivateSignals::Error, bar, &Bar::Handler);
+
+    QtConnection::Connect(&temp, &Temp::ErrorPublic, &second, &Second::ErrorSlot);
 
 
+    QObject::connect(&temp, &Temp::ErrorPrivate, &temp, [=](int) {
+        }, Qt::QueuedConnection);
 
-    QTimer::singleShot(1'000, [foo] {
-        foo->DoWork();
-        Sleep(200);
-        Sleep(200);
+
+    QTimer::singleShot(600, [&temp] {
+        temp.EmitSignal();
         });
 
     return a.exec();
