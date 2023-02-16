@@ -17,16 +17,16 @@ int main(int argc, char *argv[])
     Second second;
     Temp temp;
     
-    //QtConnection::Connect(&temp, &Temp::ErrorPublic, &temp, [](int value) {
+    //temp.Connect(&TempPrivateSignals::ErrorPrivate, &temp, [](int value) {
     //    return value / 100.0f;
     //    });
 
 
-    QtConnection::Connect(&temp, &Temp::ErrorPublic, &second, &Second::ErrorSlot);
+    //QtConnection::Connect(&temp, &Temp::ErrorPublic, &second, &Second::ErrorSlot);
 
 
-    QObject::connect(&temp, &Temp::ErrorPrivate, &temp, [=](int) {
-        }, Qt::QueuedConnection);
+    //QObject::connect(&temp, &TempPrivateSignals::ErrorPrivate, &temp, [=](int) {
+    //    }, Qt::QueuedConnection);
 
 
     QTimer::singleShot(600, [&temp] {
