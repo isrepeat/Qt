@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget* parent)
 	QWidget* centralWidget = new QWidget(this);
 	centralWidget->setStyleSheet("QWidget{border: 1px solid green;}");
 
+
 	QVBoxLayout* vLayout = new QVBoxLayout(centralWidget);
 	centralWidget->setLayout(vLayout);
 	setCentralWidget(centralWidget);
@@ -25,10 +26,10 @@ MainWindow::MainWindow(QWidget* parent)
 	innerWidget->setFixedHeight(200);
 	vLayout->addWidget(innerWidget);
 
+
 	auto vvLayout = new QVBoxLayout(innerWidget);
 	auto hhLayout = new QHBoxLayout();
 	auto hhLayout2 = new QHBoxLayout();
-
 
 	auto lbA = new QLabel("Some text label");
 	lbA->setStyleSheet("QLabel{color: blue; border: 2px solid blue;}");
@@ -46,16 +47,10 @@ MainWindow::MainWindow(QWidget* parent)
 	vvLayout->addLayout(hhLayout);
 	vvLayout->addLayout(hhLayout2);
 
+	popUp = new PopUp;
 
 	connect(pbA, &QPushButton::clicked, [this] {
-		//Beep(500, 500);
-		//Sleep(1500);
-		QString program = qApp->arguments()[0];
-		QStringList arguments = qApp->arguments().mid(1); // remove the 1st argument - the program name
-		QProcess::startDetached(program, arguments);
-		//qApp->exit(0);
-		exit(0);
-		Sleep(10000);
-		int xxx = 9;
+		popUp->setPopupText("Added to clipboard");
+		popUp->show();
 		});
 }

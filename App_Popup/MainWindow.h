@@ -4,6 +4,7 @@
 #include <QTextEdit>
 #include <QWidget>
 #include <QLabel>
+#include "Popup.h"
 
 
 class MainWindow : public QMainWindow
@@ -19,4 +20,6 @@ private:
     QLabel* label;
     QTextEdit* textEdit;
     QPushButton* pushBtn;
+
+    PopUp* popUp;
 };
