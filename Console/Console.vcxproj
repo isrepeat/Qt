@@ -101,6 +101,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="main_1_QString.cpp" />
+    <ClCompile Include="main_2_remove_files_from_one_dir_to_another.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
