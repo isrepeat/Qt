@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "App_Cursor", "App_Cursor\Ap
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "App_StyleSheets", "App_StyleSheets\App_StyleSheets.vcxproj", "{1753D132-B9B4-4FD0-89E2-9BCBF413C422}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "App_Clipboard", "App_Clipboard\App_Clipboard.vcxproj", "{6603DE5A-9926-4922-A6E8-7CE107910941}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -39,6 +41,10 @@ Global
 		{1753D132-B9B4-4FD0-89E2-9BCBF413C422}.Debug|x64.Build.0 = Debug|x64
 		{1753D132-B9B4-4FD0-89E2-9BCBF413C422}.Release|x64.ActiveCfg = Release|x64
 		{1753D132-B9B4-4FD0-89E2-9BCBF413C422}.Release|x64.Build.0 = Release|x64
+		{6603DE5A-9926-4922-A6E8-7CE107910941}.Debug|x64.ActiveCfg = Debug|x64
+		{6603DE5A-9926-4922-A6E8-7CE107910941}.Debug|x64.Build.0 = Debug|x64
+		{6603DE5A-9926-4922-A6E8-7CE107910941}.Release|x64.ActiveCfg = Release|x64
+		{6603DE5A-9926-4922-A6E8-7CE107910941}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
