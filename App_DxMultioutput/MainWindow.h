@@ -4,7 +4,8 @@
 #include <QTextEdit>
 #include <QWidget>
 #include <QLabel>
-
+#include "RenderWindow.h"
+#include "Direct2DRenderer.h"
 
 class MainWindow : public QMainWindow
 {
@@ -15,8 +16,14 @@ public:
     ~MainWindow() = default;
 
 private:
+    void Render();
 
+private:
     QLabel* label;
     QTextEdit* textEdit;
     QPushButton* pushBtn;
+
+    std::unique_ptr<Direct2DRenderer> dxRenderer;
+    std::unique_ptr<RenderWindow> renderWindow;
+    QWidget* renderWindowWidget;
 };

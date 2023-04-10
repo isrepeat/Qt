@@ -11,7 +11,7 @@ int main(int argc, char **argv)
     QApplication app(argc, argv);
     
     auto window = new MainWindow();
-    window->resize(800,600);
+    window->resize(2880, 1620); // 1920x1080 * 1.5
     window->show();
 
     return app.exec();

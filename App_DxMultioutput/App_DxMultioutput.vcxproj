@@ -97,11 +97,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Direct2DRenderer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="RenderWindow.cpp" />
+    <ClCompile Include="Helpers.cpp" />
+    <ClCompile Include="System.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainWindow.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="RenderWindow.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Direct2DRenderer.h" />
+    <ClInclude Include="Frame.h" />
+    <ClInclude Include="Helpers.h" />
+    <ClInclude Include="System.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

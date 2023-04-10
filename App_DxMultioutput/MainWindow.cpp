@@ -11,7 +11,9 @@
 
 
 MainWindow::MainWindow(QWidget* parent) 
-	: QMainWindow(parent) 
+	: QMainWindow(parent)
+	, renderWindow{ new RenderWindow{} }
+	, dxRenderer{ new Direct2DRenderer{} }
 {
 	QWidget* centralWidget = new QWidget(this);
 	centralWidget->setStyleSheet("QWidget{border: 1px solid green;}");
@@ -19,6 +21,16 @@ MainWindow::MainWindow(QWidget* parent)
 	QVBoxLayout* vLayout = new QVBoxLayout(centralWidget);
 	centralWidget->setLayout(vLayout);
 	setCentralWidget(centralWidget);
+
+	//QWidget* renderWidget = new QWidget(this);
+	renderWindowWidget = QWidget::createWindowContainer(renderWindow.get());
+	renderWindowWidget->setAttribute(Qt::WA_NoBackground);
+	renderWindowWidget->setStyleSheet("QWidget{border: 2px solid gray;}");
+	renderWindowWidget->setFixedWidth(1920);
+	renderWindowWidget->setFixedHeight(1080);
+	vLayout->addWidget(renderWindowWidget);
+	vLayout->setAlignment(renderWindowWidget, Qt::AlignmentFlag::AlignHCenter);
+
 
 	QWidget* innerWidget = new QWidget(this);
 	innerWidget->setStyleSheet("QWidget{border: 2px solid red;}");
@@ -48,14 +60,25 @@ MainWindow::MainWindow(QWidget* parent)
 
 
 	connect(pbA, &QPushButton::clicked, [this] {
-		//Beep(500, 500);
-		//Sleep(1500);
-		QString program = qApp->arguments()[0];
-		QStringList arguments = qApp->arguments().mid(1); // remove the 1st argument - the program name
-		QProcess::startDetached(program, arguments);
-		//qApp->exit(0);
-		exit(0);
-		Sleep(10000);
+		this->Render();
 		int xxx = 9;
 		});
+
+	FrameConfigurationData frameConfiguration;
+	frameConfiguration.startX = 0;
+	frameConfiguration.startY = 0;
+	frameConfiguration.size.width = 1920;
+	frameConfiguration.size.height = 1080;
+	frameConfiguration.pixelFormat = PixelFormat::BGRA32;
+
+	dxRenderer->SetFrameConfiguration(frameConfiguration);
+	dxRenderer->SetNeedTextureHandler([] {
+		});
+	dxRenderer->SetHwnd((HWND)renderWindowWidget->winId());
+	dxRenderer->SetWindowSize(frameConfiguration.size);
+	dxRenderer->Start();
+}
+
+void MainWindow::Render() {
+	dxRenderer->AddFrameChunk(std::move(frameLocal), 0, 1);
 }
