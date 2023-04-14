@@ -32,12 +32,21 @@
     <ClCompile Include="Helpers.cpp">
       <Filter>Source Files\Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="RenderingNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NoParentWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainWindow.h">
       <Filter>Source Files</Filter>
     </QtMoc>
     <QtMoc Include="RenderWindow.h">
+      <Filter>Source Files</Filter>
+    </QtMoc>
+    <QtMoc Include="NoParentWindow.h">
       <Filter>Source Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -53,6 +62,9 @@
     </ClInclude>
     <ClInclude Include="Helpers.h">
       <Filter>Source Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingNode.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

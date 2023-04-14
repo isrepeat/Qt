@@ -4,8 +4,8 @@
 #include <QTextEdit>
 #include <QWidget>
 #include <QLabel>
-#include "RenderWindow.h"
-#include "Direct2DRenderer.h"
+#include "RenderingNode.h"
+#include "NoParentWindow.h"
 
 class MainWindow : public QMainWindow
 {
@@ -16,14 +16,19 @@ public:
     ~MainWindow() = default;
 
 private:
-    void Render();
+    //void InitRender(RenderingNode* renderNode, FrameConfigurationData frameConfiguration, HWND hwnd, std::vector<Color>::iterator& itColors, const std::vector<Color>::iterator& itColorsEnd);
+
+    void showEvent(QShowEvent* event) final;
+    void hideEvent(QHideEvent* event) final;
 
 private:
     QLabel* label;
     QTextEdit* textEdit;
     QPushButton* pushBtn;
 
-    std::unique_ptr<Direct2DRenderer> dxRenderer;
-    std::unique_ptr<RenderWindow> renderWindow;
-    QWidget* renderWindowWidget;
+    std::vector<Color>::iterator itColors_1;
+    std::vector<Color>::iterator itColors_2;
+
+    std::unique_ptr<RenderingNode> renderingNode_1;
+    std::unique_ptr<RenderingNode> renderingNode_2;
 };

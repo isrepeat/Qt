@@ -28,6 +28,10 @@ struct Size {
 	}
 };
 
+struct Color { 
+	int b, g, r;
+};
+
 struct FrameConfigurationData {
 	DpiData displayData;
 	PixelFormat pixelFormat;

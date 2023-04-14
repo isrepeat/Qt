@@ -4,6 +4,8 @@
 #include <QLayout>
 #include <QDebug>
 #include <QTimer>
+#include <QShowEvent>
+#include <QHideEvent>
 #include <thread>
 
 #include <Windows.h>
@@ -12,9 +14,13 @@
 
 MainWindow::MainWindow(QWidget* parent) 
 	: QMainWindow(parent)
-	, renderWindow{ new RenderWindow{} }
-	, dxRenderer{ new Direct2DRenderer{} }
+	, renderingNode_1{ new RenderingNode{} }
+	, renderingNode_2{ new RenderingNode{} }
 {
+	//this->setVisible(false);
+	//setAttribute(Qt::WA_TranslucentBackground);
+	//setWindowFlags(Qt::FramelessWindowHint);
+
 	QWidget* centralWidget = new QWidget(this);
 	centralWidget->setStyleSheet("QWidget{border: 1px solid green;}");
 
@@ -22,14 +28,23 @@ MainWindow::MainWindow(QWidget* parent)
 	centralWidget->setLayout(vLayout);
 	setCentralWidget(centralWidget);
 
-	//QWidget* renderWidget = new QWidget(this);
-	renderWindowWidget = QWidget::createWindowContainer(renderWindow.get());
-	renderWindowWidget->setAttribute(Qt::WA_NoBackground);
-	renderWindowWidget->setStyleSheet("QWidget{border: 2px solid gray;}");
-	renderWindowWidget->setFixedWidth(1920);
-	renderWindowWidget->setFixedHeight(1080);
-	vLayout->addWidget(renderWindowWidget);
-	vLayout->setAlignment(renderWindowWidget, Qt::AlignmentFlag::AlignHCenter);
+	auto renderWindowWidget_1 = QWidget::createWindowContainer(renderingNode_1->GetRenderWindow());
+	//renderWindowWidget_1->setAttribute(Qt::WA_NoBackground);
+	renderWindowWidget_1->setStyleSheet("QWidget{border: 2px solid gray;}");
+	renderWindowWidget_1->setFixedWidth(800);
+	renderWindowWidget_1->setFixedHeight(600);
+	vLayout->addWidget(renderWindowWidget_1);
+	vLayout->setAlignment(renderWindowWidget_1, Qt::AlignmentFlag::AlignHCenter);
+
+	vLayout->addSpacing(100);
+
+	auto renderWindowWidget_2 = QWidget::createWindowContainer(renderingNode_2->GetRenderWindow());
+	renderWindowWidget_2->setAttribute(Qt::WA_NoBackground);
+	renderWindowWidget_2->setStyleSheet("QWidget{border: 2px solid gray;}");
+	renderWindowWidget_2->setFixedWidth(800);
+	renderWindowWidget_2->setFixedHeight(600);
+	vLayout->addWidget(renderWindowWidget_2);
+	vLayout->setAlignment(renderWindowWidget_2, Qt::AlignmentFlag::AlignHCenter);
 
 
 	QWidget* innerWidget = new QWidget(this);
@@ -60,7 +75,6 @@ MainWindow::MainWindow(QWidget* parent)
 
 
 	connect(pbA, &QPushButton::clicked, [this] {
-		this->Render();
 		int xxx = 9;
 		});
 
@@ -70,15 +84,19 @@ MainWindow::MainWindow(QWidget* parent)
 	frameConfiguration.size.width = 1920;
 	frameConfiguration.size.height = 1080;
 	frameConfiguration.pixelFormat = PixelFormat::BGRA32;
+	
+	renderingNode_1->Init(frameConfiguration, { Color{30,30,30}, Color{90,90,90}, Color{150,150,150} });
+	renderingNode_2->Init(frameConfiguration, { Color{0,30,0}, Color{0,90,0}, Color{0,150,0} });
 
-	dxRenderer->SetFrameConfiguration(frameConfiguration);
-	dxRenderer->SetNeedTextureHandler([] {
-		});
-	dxRenderer->SetHwnd((HWND)renderWindowWidget->winId());
-	dxRenderer->SetWindowSize(frameConfiguration.size);
-	dxRenderer->Start();
+
+	
 }
 
-void MainWindow::Render() {
-	dxRenderer->AddFrameChunk(std::move(frameLocal), 0, 1);
+void MainWindow::showEvent(QShowEvent* event) {
+	//noParentWindow.resize(400, 400);
+	//noParentWindow.show();
+}
+
+void MainWindow::hideEvent(QHideEvent* event) {
+	int xxx = 9;
 }

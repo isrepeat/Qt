@@ -100,6 +100,8 @@
     <ClCompile Include="Direct2DRenderer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="NoParentWindow.cpp" />
+    <ClCompile Include="RenderingNode.cpp" />
     <ClCompile Include="RenderWindow.cpp" />
     <ClCompile Include="Helpers.cpp" />
     <ClCompile Include="System.cpp" />
@@ -114,6 +116,8 @@
     <ClInclude Include="Direct2DRenderer.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Helpers.h" />
+    <QtMoc Include="NoParentWindow.h" />
+    <ClInclude Include="RenderingNode.h" />
     <ClInclude Include="System.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

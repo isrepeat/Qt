@@ -4,11 +4,14 @@
 #include "System.h"
 #include <d2d1effects.h>
 #include <cassert>
-#pragma comment(lib, "dwrite")
-
 #include <sstream>
 #include <numbers>
 
+#pragma comment(lib, "dxguid.lib")
+#pragma comment(lib, "d3d11.lib")
+#pragma comment(lib, "d2d1.lib")
+#pragma comment(lib, "dxgi.lib")
+#pragma comment(lib, "dwrite")
 
 Direct2DRenderer::~Direct2DRenderer() {
 	Stop();
@@ -33,6 +36,7 @@ void Direct2DRenderer::SetDecodeHandler(std::function<std::vector<uint8_t>(std::
 
 void Direct2DRenderer::AddFrameChunk(Frame&& chunk, uint8_t index, uint8_t chunksCount) {
 	std::lock_guard lk{ mutex };
+	//controlChunk = chunk;
 
 	chunks.insert(chunks.begin() + index, std::move(chunk));
 	lastChunkReceiveTimestamp = H::GetCurrentTimestamp<std::chrono::milliseconds>();
@@ -182,6 +186,42 @@ void Direct2DRenderer::SetWindowSize(Size newSize) {
 	}
 }
 
+//void Direct2DRenderer::Start() {
+//	if (d2d1DeviceContext == nullptr)
+//		throw std::exception("Direct2D components uninitialized");
+//	////chunks = std::move(previousFrameChunks);
+//
+//	Frame frame;
+//	frame.dirtyRegions.push_back(DirtyImageRegion{ 0,0, frameConfigurationData.size.width, frameConfigurationData.size.height });
+//
+//	chunks.clear();
+//	chunks.push_back(std::move(frame));
+//	controlChunk = chunks[0];
+//
+//	////lastData.resize(frameConfigurationData.size.width * frameConfigurationData.size.height * 4);
+//	////for (int n = 0; n < frameConfigurationData.size.width * frameConfigurationData.size.height / 2; n++) {
+//	////	int pixNum = n % frameConfigurationData.size.width;
+//	////	if (100 < pixNum && pixNum < frameConfigurationData.size.width - 100) {
+//	////		for (int k = 0; k < 4; k++) {
+//	////			if (k == 1)
+//	////				lastData[n * 4 + k] = 0xFF;
+//	////		}
+//	////	}
+//	////}
+//
+//	working = true;
+//	renderingThread = std::thread([this] {
+//		//frameRequestHandler();
+//		needTextureHandler();
+//		timeTotal = H::GetCurrentTimestamp<std::chrono::milliseconds>();
+//
+//		// If often switch monitors maybe be crash without delay, check ...
+//		//std::this_thread::sleep_for(std::chrono::milliseconds(100)); // wait until d2d1DeviceContext is fully init (when monitor was changed)
+//		while (working) {
+//			RenderingRoutine();
+//		}
+//		});
+//}
 
 void Direct2DRenderer::Start() {
 	assert(d2d1DeviceContext);
@@ -310,30 +350,29 @@ void Direct2DRenderer::CreateBitmapFromSwapchain() {
 }
 
 namespace Test {
-	std::vector<uint8_t> GetTestImage(Size frameSize) {
+	std::vector<uint8_t> GetTestImage(Size frameSize, Color bgColor) {
 		std::vector<uint8_t> frameData(frameSize.width * frameSize.height * 4);
 
 		for (int h = 0; h < frameSize.height; h++) {
 			for (int w = 0; w < frameSize.width; w++) {
 				int pixexPos = (h * frameSize.width + w) * 4;
-				struct Color { int b, g, r; };
-				Color color{ 150,150,150 };
 
+				Color color = bgColor;
 				int offs, dx;
 
-				offs = 0; dx = 100;
-				if (offs < w && w < offs + dx)
+				offs = 50; dx = 300;
+				if (offs < w && w < offs + dx)										// Left side color
 					color = { 0,0,100 };
 
-				if (frameSize.width - offs - dx < w && w < frameSize.width - offs)
+				if (frameSize.width - offs - dx < w && w < frameSize.width - offs)	// Right side color
 					color = { 0,100,100 };
 
-				offs = 100; dx = 100;
-				if (offs < w && w < offs + dx)
-					color = { 0,100,0 };
+				//offs = 100; dx = 100;
+				//if (offs < w && w < offs + dx)
+				//	color = { 0,100,0 };
 
-				if (frameSize.width - offs - dx < w && w < frameSize.width - offs)
-					color = { 100,100,0 };
+				//if (frameSize.width - offs - dx < w && w < frameSize.width - offs)
+				//	color = { 100,100,0 };
 
 
 				frameData[pixexPos + 0] = color.b;
@@ -346,6 +385,63 @@ namespace Test {
 		return frameData;
 	}
 }
+
+
+//void Direct2DRenderer::RenderingRoutine() {
+//	// TODO: test sleep() with other capture process
+//	{
+//		std::unique_lock lk{ mutex };
+//		//if (!renderCv.wait_for(lk, std::chrono::milliseconds(1), [this] {
+//		//	//return IsAllChunksPresent() && working;
+//		//	return controlChunk.data.size() > 0 && working;
+//		//	})) {
+//		//	return;
+//		//}
+//
+//		if (controlChunk.data.size() == 0)
+//			return;
+//
+//		//controlChunk = std::move(chunks[0]);
+//
+//		////previousFrameChunks = std::move(chunks);
+//		//chunks.clear();
+//		////isWaitingChunks = true; // not use
+//
+//		lastData = std::move(controlChunk.data);
+//	}
+//
+//	needTextureHandler();
+//	//Sleep(1);
+//
+//	std::unique_lock<std::mutex> lock(mutexDrawing); // guard resize swap chain
+//
+//	if (lastData.size() < frameConfigurationData.size.width * frameConfigurationData.size.height * 4)
+//		return;
+//
+//	auto rect = D2D1::RectU(0, 0, frameConfigurationData.size.width, frameConfigurationData.size.height);
+//
+//	HRESULT hr = temporaryBitmap->CopyFromMemory(&rect, lastData.data(), 4 * frameConfigurationData.size.width);
+//	H::System::ThrowIfFailed(hr);
+//
+//	CopyDirtyRegionsFromTempBitmapToUserDesktopBitmap();
+//
+//	D2D1_RECT_F dstRect = D2D1::RectF(0, 0, frameConfigurationData.size.width, frameConfigurationData.size.height);;
+//
+//	auto sourceBitmapSize = remoteDesktopBitmap->GetSize();
+//	D2D1_RECT_F srcRect = D2D1::RectF(0, 0, sourceBitmapSize.width, sourceBitmapSize.height);
+//
+//	d2d1DeviceContext->BeginDraw();
+//	d2d1DeviceContext->Clear(D2D1::ColorF(D2D1::ColorF::Gray));
+//
+//	scaleEffect->SetInput(0, remoteDesktopBitmap.Get());
+//	d2d1DeviceContext->DrawImage(scaleEffect.Get());
+//
+//	hr = d2d1DeviceContext->EndDraw();
+//	H::System::ThrowIfFailed(hr);
+//
+//	hr = swapChain->Present(1, 0);
+//	H::System::ThrowIfFailed(hr);
+//}
 
 
 void Direct2DRenderer::RenderingRoutine() {

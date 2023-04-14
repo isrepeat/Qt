@@ -30,6 +30,8 @@ public:
 	void Start();
 	void Stop();
 
+	//std::vector<Color> testColors;
+
 private:
 	void InitDirect2D();
 	void InitDirectRenderTarget(DXGI_FORMAT pixelFormat);
@@ -102,3 +104,8 @@ private:
 	std::atomic<bool> promptImageDrawing = false;
 	std::atomic<bool> canResizeSwapChain = false;
 };
+
+
+namespace Test {
+	std::vector<uint8_t> GetTestImage(Size frameSize, Color bgColor = { 100, 100, 100 });
+}
