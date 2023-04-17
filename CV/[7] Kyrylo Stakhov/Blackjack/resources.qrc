@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>style/stylesheet.qss</file>
+        <file>textures/cards.png</file>
+        <file>textures/bg.png</file>
+        <file>textures/tile.png</file>
+        <file>sound/soundtrack.ogg</file>
+        <file>sound/bet.wav</file>
+        <file>sound/deal.wav</file>
+        <file>sound/click.wav</file>
+        <file>sound/win.wav</file>
+        <file>sound/loss.wav</file>
+        <file>sound/push.wav</file>
+    </qresource>
+</RCC>

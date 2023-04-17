@@ -19,6 +19,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[4] Mykyta Shcherbatiuk", "
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Blackjack", "CV\[4] Mykyta Shcherbatiuk\Blackjack\Blackjack.vcxproj", "{962B2481-7600-4E38-AC64-74F303BC8825}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[7] Kyrylo Stakhov", "[7] Kyrylo Stakhov", "{22B70592-CBE3-4457-9B82-823E502A9641}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Blackjack", "CV\[7] Kyrylo Stakhov\Blackjack\Blackjack.vcxproj", "{55EC8DF4-01F5-470D-BFAA-FECADEB2C5C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -49,6 +53,10 @@ Global
 		{962B2481-7600-4E38-AC64-74F303BC8825}.Debug|x64.Build.0 = Debug|x64
 		{962B2481-7600-4E38-AC64-74F303BC8825}.Release|x64.ActiveCfg = Release|x64
 		{962B2481-7600-4E38-AC64-74F303BC8825}.Release|x64.Build.0 = Release|x64
+		{55EC8DF4-01F5-470D-BFAA-FECADEB2C5C1}.Debug|x64.ActiveCfg = Debug|x64
+		{55EC8DF4-01F5-470D-BFAA-FECADEB2C5C1}.Debug|x64.Build.0 = Debug|x64
+		{55EC8DF4-01F5-470D-BFAA-FECADEB2C5C1}.Release|x64.ActiveCfg = Release|x64
+		{55EC8DF4-01F5-470D-BFAA-FECADEB2C5C1}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +64,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{9645F929-8EE8-494E-9C78-826060D73449} = {1716ECD3-D504-4B4E-83DC-9987CAB2773F}
 		{962B2481-7600-4E38-AC64-74F303BC8825} = {9645F929-8EE8-494E-9C78-826060D73449}
+		{22B70592-CBE3-4457-9B82-823E502A9641} = {1716ECD3-D504-4B4E-83DC-9987CAB2773F}
+		{55EC8DF4-01F5-470D-BFAA-FECADEB2C5C1} = {22B70592-CBE3-4457-9B82-823E502A9641}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D0E2A8EA-9055-4BA7-80CA-7066B132CD6A}
