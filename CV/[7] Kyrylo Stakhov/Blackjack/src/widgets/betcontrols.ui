@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>BetControls</class>
+ <widget class="QWidget" name="BetControls">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>149</width>
+    <height>75</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QSlider" name="betSlider">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="betSpinBox"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QPushButton" name="betButton">
+     <property name="text">
+      <string>Bet</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>betSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>betSpinBox</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>51</x>
+     <y>22</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>119</x>
+     <y>22</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>betSpinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>betSlider</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>119</x>
+     <y>22</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>51</x>
+     <y>22</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>betButton</sender>
+   <signal>clicked()</signal>
+   <receiver>BetControls</receiver>
+   <slot>placeBet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>73</x>
+     <y>56</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>145</x>
+     <y>56</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>placeBet()</slot>
+ </slots>
+</ui>

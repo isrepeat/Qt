@@ -1,0 +1,73 @@
+<RCC>
+  <qresource prefix="/background">
+    <file alias="game">./images/backgrounds/game.jpg</file>
+    <file alias="menu">./images/backgrounds/menu.png</file>
+  </qresource>
+
+  <qresource prefix="/card">
+    <!-- clubs -->
+    <file alias="clubs/10">./images/cards/clubs/10.png</file>
+    <file alias="clubs/11">./images/cards/clubs/11.png</file>
+    <file alias="clubs/12">./images/cards/clubs/12.png</file>
+    <file alias="clubs/13">./images/cards/clubs/13.png</file>
+    <file alias="clubs/14">./images/cards/clubs/14.png</file>
+    <file alias="clubs/2">./images/cards/clubs/2.png</file>
+    <file alias="clubs/3">./images/cards/clubs/3.png</file>
+    <file alias="clubs/4">./images/cards/clubs/4.png</file>
+    <file alias="clubs/5">./images/cards/clubs/5.png</file>
+    <file alias="clubs/6">./images/cards/clubs/6.png</file>
+    <file alias="clubs/7">./images/cards/clubs/7.png</file>
+    <file alias="clubs/8">./images/cards/clubs/8.png</file>
+    <file alias="clubs/9">./images/cards/clubs/9.png</file>
+    <!-- diamonds -->
+    <file alias="diamonds/10">./images/cards/diamonds/10.png</file>
+    <file alias="diamonds/11">./images/cards/diamonds/11.png</file>
+    <file alias="diamonds/12">./images/cards/diamonds/12.png</file>
+    <file alias="diamonds/13">./images/cards/diamonds/13.png</file>
+    <file alias="diamonds/14">./images/cards/diamonds/14.png</file>
+    <file alias="diamonds/2">./images/cards/diamonds/2.png</file>
+    <file alias="diamonds/3">./images/cards/diamonds/3.png</file>
+    <file alias="diamonds/4">./images/cards/diamonds/4.png</file>
+    <file alias="diamonds/5">./images/cards/diamonds/5.png</file>
+    <file alias="diamonds/6">./images/cards/diamonds/6.png</file>
+    <file alias="diamonds/7">./images/cards/diamonds/7.png</file>
+    <file alias="diamonds/8">./images/cards/diamonds/8.png</file>
+    <file alias="diamonds/9">./images/cards/diamonds/9.png</file>
+    <!-- hearts -->
+    <file alias="hearts/10">./images/cards/hearts/10.png</file>
+    <file alias="hearts/11">./images/cards/hearts/11.png</file>
+    <file alias="hearts/12">./images/cards/hearts/12.png</file>
+    <file alias="hearts/13">./images/cards/hearts/13.png</file>
+    <file alias="hearts/14">./images/cards/hearts/14.png</file>
+    <file alias="hearts/2">./images/cards/hearts/2.png</file>
+    <file alias="hearts/3">./images/cards/hearts/3.png</file>
+    <file alias="hearts/4">./images/cards/hearts/4.png</file>
+    <file alias="hearts/5">./images/cards/hearts/5.png</file>
+    <file alias="hearts/6">./images/cards/hearts/6.png</file>
+    <file alias="hearts/7">./images/cards/hearts/7.png</file>
+    <file alias="hearts/8">./images/cards/hearts/8.png</file>
+    <file alias="hearts/9">./images/cards/hearts/9.png</file>
+    <!-- spades -->
+    <file alias="spades/10">./images/cards/spades/10.png</file>
+    <file alias="spades/11">./images/cards/spades/11.png</file>
+    <file alias="spades/12">./images/cards/spades/12.png</file>
+    <file alias="spades/13">./images/cards/spades/13.png</file>
+    <file alias="spades/14">./images/cards/spades/14.png</file>
+    <file alias="spades/2">./images/cards/spades/2.png</file>
+    <file alias="spades/3">./images/cards/spades/3.png</file>
+    <file alias="spades/4">./images/cards/spades/4.png</file>
+    <file alias="spades/5">./images/cards/spades/5.png</file>
+    <file alias="spades/6">./images/cards/spades/6.png</file>
+    <file alias="spades/7">./images/cards/spades/7.png</file>
+    <file alias="spades/8">./images/cards/spades/8.png</file>
+    <file alias="spades/9">./images/cards/spades/9.png</file>
+    <!-- unknown -->
+    <file alias="unknown">./images/cards/unknown.png</file>
+  </qresource>
+
+  <qresource prefix="/sound">
+    <file alias="card">./sound/card.mp3</file>
+    <file alias="chip">./sound/chip.mp3</file>
+    <file alias="click">./sound/click.wav</file>
+  </qresource>
+</RCC>

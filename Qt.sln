@@ -13,6 +13,16 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "App_Cursor", "App_Cursor\Ap
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "App_StyleSheets", "App_StyleSheets\App_StyleSheets.vcxproj", "{1753D132-B9B4-4FD0-89E2-9BCBF413C422}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CV", "CV", "{1716ECD3-D504-4B4E-83DC-9987CAB2773F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[4] Mykyta Shcherbatiuk", "[4] Mykyta Shcherbatiuk", "{9645F929-8EE8-494E-9C78-826060D73449}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Blackjack", "CV\[4] Mykyta Shcherbatiuk\Blackjack\Blackjack.vcxproj", "{962B2481-7600-4E38-AC64-74F303BC8825}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[7] Kyrylo Stakhov", "[7] Kyrylo Stakhov", "{22B70592-CBE3-4457-9B82-823E502A9641}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Blackjack", "CV\[7] Kyrylo Stakhov\Blackjack\Blackjack.vcxproj", "{55EC8DF4-01F5-470D-BFAA-FECADEB2C5C1}"
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AppPopup", "App_Popup\AppPopup.vcxproj", "{8B3A3721-F61A-4171-A3DC-15BF85DCACC7}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "App_DxMultioutput", "App_DxMultioutput\App_DxMultioutput.vcxproj", "{1757D1A9-9FCA-4E10-AA22-CC0153BD95DC}"
@@ -43,6 +53,14 @@ Global
 		{1753D132-B9B4-4FD0-89E2-9BCBF413C422}.Debug|x64.Build.0 = Debug|x64
 		{1753D132-B9B4-4FD0-89E2-9BCBF413C422}.Release|x64.ActiveCfg = Release|x64
 		{1753D132-B9B4-4FD0-89E2-9BCBF413C422}.Release|x64.Build.0 = Release|x64
+		{962B2481-7600-4E38-AC64-74F303BC8825}.Debug|x64.ActiveCfg = Debug|x64
+		{962B2481-7600-4E38-AC64-74F303BC8825}.Debug|x64.Build.0 = Debug|x64
+		{962B2481-7600-4E38-AC64-74F303BC8825}.Release|x64.ActiveCfg = Release|x64
+		{962B2481-7600-4E38-AC64-74F303BC8825}.Release|x64.Build.0 = Release|x64
+		{55EC8DF4-01F5-470D-BFAA-FECADEB2C5C1}.Debug|x64.ActiveCfg = Debug|x64
+		{55EC8DF4-01F5-470D-BFAA-FECADEB2C5C1}.Debug|x64.Build.0 = Debug|x64
+		{55EC8DF4-01F5-470D-BFAA-FECADEB2C5C1}.Release|x64.ActiveCfg = Release|x64
+		{55EC8DF4-01F5-470D-BFAA-FECADEB2C5C1}.Release|x64.Build.0 = Release|x64
 		{8B3A3721-F61A-4171-A3DC-15BF85DCACC7}.Debug|x64.ActiveCfg = Debug|x64
 		{8B3A3721-F61A-4171-A3DC-15BF85DCACC7}.Debug|x64.Build.0 = Debug|x64
 		{8B3A3721-F61A-4171-A3DC-15BF85DCACC7}.Release|x64.ActiveCfg = Release|x64
@@ -54,6 +72,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9645F929-8EE8-494E-9C78-826060D73449} = {1716ECD3-D504-4B4E-83DC-9987CAB2773F}
+		{962B2481-7600-4E38-AC64-74F303BC8825} = {9645F929-8EE8-494E-9C78-826060D73449}
+		{22B70592-CBE3-4457-9B82-823E502A9641} = {1716ECD3-D504-4B4E-83DC-9987CAB2773F}
+		{55EC8DF4-01F5-470D-BFAA-FECADEB2C5C1} = {22B70592-CBE3-4457-9B82-823E502A9641}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D0E2A8EA-9055-4BA7-80CA-7066B132CD6A}

@@ -1,0 +1,25 @@
+QWidget#HandInfo,
+QWidget#GameControls,
+QWidget#BetControls {
+	background-color: rgba(0, 0, 0, 0);
+}
+
+QWidget#GameInfo {
+	background-color: rgba(0, 0, 0, 100);
+}
+
+QWidget#GameEndMessage {
+	background-color: rgba(0, 0, 0, 180);
+}
+
+QLabel {
+	color: white;
+}
+
+QMessageBox QLabel {
+	color: black;
+}
+
+GameSceneView#gameView {
+	background-image: url(":/textures/tile.png");
+}
