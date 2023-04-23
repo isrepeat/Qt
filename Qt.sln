@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "App_Cursor", "App_Cursor\Ap
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "App_StyleSheets", "App_StyleSheets\App_StyleSheets.vcxproj", "{1753D132-B9B4-4FD0-89E2-9BCBF413C422}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AppPopup", "App_Popup\AppPopup.vcxproj", "{8B3A3721-F61A-4171-A3DC-15BF85DCACC7}"
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "App_DxMultioutput", "App_DxMultioutput\App_DxMultioutput.vcxproj", "{1757D1A9-9FCA-4E10-AA22-CC0153BD95DC}"
 EndProject
 Global
@@ -41,10 +43,6 @@ Global
 		{1753D132-B9B4-4FD0-89E2-9BCBF413C422}.Debug|x64.Build.0 = Debug|x64
 		{1753D132-B9B4-4FD0-89E2-9BCBF413C422}.Release|x64.ActiveCfg = Release|x64
 		{1753D132-B9B4-4FD0-89E2-9BCBF413C422}.Release|x64.Build.0 = Release|x64
-		{1757D1A9-9FCA-4E10-AA22-CC0153BD95DC}.Debug|x64.ActiveCfg = Debug|x64
-		{1757D1A9-9FCA-4E10-AA22-CC0153BD95DC}.Debug|x64.Build.0 = Debug|x64
-		{1757D1A9-9FCA-4E10-AA22-CC0153BD95DC}.Release|x64.ActiveCfg = Release|x64
-		{1757D1A9-9FCA-4E10-AA22-CC0153BD95DC}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
