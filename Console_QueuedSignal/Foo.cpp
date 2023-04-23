@@ -3,11 +3,11 @@
 #include <Windows.h>
 
 Temp::Temp() {
-	//QtConnection::Connect(this, &Temp::ErrorPrivate, this, [](int value) {
-	//	return value / 100.0f;
-	//	});
+	this->Connect(&TempPrivateSignals::ErrorPrivate, this, [](int value) {
+		return value / 100.0f;
+		});
 
-	QtConnection::Connect(this, &Temp::ErrorPrivate, &second, &Second::ErrorSlot);
+	//this->Connect(&TempPrivateSignals::ErrorPrivate, &second, &Second::ErrorSlot);
 }
 
 void Temp::EmitSignal() {
@@ -15,8 +15,8 @@ void Temp::EmitSignal() {
 
 	auto th = std::thread([this] {
 		Sleep(500);
-		auto res = emit ErrorPublic(911);
-		//auto res = emit ErrorPrivate(1488);
+		//auto res = emit ErrorPublic(911);
+		auto res = emit privateSignals->ErrorPrivate(1488);
 		Sleep(500);
 		});
 

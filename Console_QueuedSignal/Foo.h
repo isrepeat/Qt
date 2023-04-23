@@ -6,122 +6,51 @@
 #include <optional>
 
 
-//// TODO: mb incapsulate to QtConnection
-//template<template<typename, Qt::ConnectionType> typename T, typename U>
-//struct isDerivedFrom {
-//private:
-//	template<typename V, Qt::ConnectionType Ct>
-//	static decltype(static_cast<const T<V, Ct>&>(std::declval<U>()), std::true_type{})
-//		test(const T<V, Ct>&);
-//
-//	static std::false_type test(...);
-//public:
-//	static constexpr bool value = decltype(isDerivedFrom::test(std::declval<U>()))::value;
-//};
+
+class QtEmptySignals : public QObject {
+	Q_OBJECT
+};
+#define QT_EMPTY_SIGNALS QtEmptySignals
 
 
 
-
-
-
-//template<typename TPublic, typename TPrivate>
-class QtConnection {
-//public:
-//	QtConnection() 
-//		: publicSignals{ new TPublic() }
-//		, privateSignals{ new TPrivate() }
-//	{}
-//	~QtConnectionHelper() = default;
-
-private:
-	template <typename Ret, Qt::ConnectionType Ct>
-	struct BaseSignal {
-		Ret result;
-	};
-	template <Qt::ConnectionType Ct>
-	struct BaseSignal<void, Ct> {};
-
-	template <typename Ret, Qt::ConnectionType Ct> 
-	struct PublicSignal : public BaseSignal<Ret, Ct> {};
-
-	template <typename Ret, Qt::ConnectionType Ct>
-	struct PrivateSignal : public BaseSignal<Ret, Ct> {};
-
+template <typename TPublic, typename TPrivate = QT_EMPTY_SIGNALS>
+class QtConnectionHelper {
 public:
-	template<typename R> using PublicDirectSignal = QtConnection::PublicSignal<R, Qt::DirectConnection>;
-	template<typename R> using PublicQueuedSignal = QtConnection::PublicSignal<R, Qt::QueuedConnection>;
-	template<typename R> using PublicBlockedSignal = QtConnection::PublicSignal<R, Qt::BlockingQueuedConnection>;
+	QtConnectionHelper()
+		: publicSignals{ new TPublic() }
+		, privateSignals{ new TPrivate() }
+	{}
+	~QtConnectionHelper() = default;
 
-	
-
-	template <typename R, Qt::ConnectionType Ct, typename TObject, typename... A, typename Fn>
-	static void Connect(TObject* sender, PublicSignal<R, Ct>(TObject::* signal)(A...), const QObject* context, Fn lambda) {
-		ConnectInternal<R, Ct>(sender, signal, context, lambda);
-	}
-	
-	template <typename R, Qt::ConnectionType Ct, typename TObject, typename... A, typename Fn>
-	static void Connect(TObject* sender, PublicSignal<R, Ct>(TObject::* signal)(A...), typename QtPrivate::FunctionPointer<Fn>::Object* receiver, Fn slot) {
-		ConnectInternal<R, Ct>(sender, signal, receiver, slot);
-	}
-
-protected:
-	template<typename R> using PrivateDirectSignal = QtConnection::PrivateSignal<R, Qt::DirectConnection>;
-	template<typename R> using PrivateQueuedSignal = QtConnection::PrivateSignal<R, Qt::QueuedConnection>;
-	template<typename R> using PrivateBlockedSignal = QtConnection::PrivateSignal<R, Qt::BlockingQueuedConnection>;
-
-
-	template <typename R, Qt::ConnectionType Ct, typename TObject, typename... A, typename Fn>
-	static void Connect(TObject* sender, PrivateSignal<R, Ct>(TObject::* signal)(A...), const QObject* context, Fn lambda) {
-		ConnectInternal<R, Ct>(sender, signal, context, lambda);
-	}
-
-	template <typename R, Qt::ConnectionType Ct, typename TObject, typename... A, typename Fn>
-	static void Connect(TObject* sender, PrivateSignal<R, Ct>(TObject::* signal)(A...), typename QtPrivate::FunctionPointer<Fn>::Object* receiver, Fn slot) {
-		ConnectInternal<R, Ct>(sender, signal, receiver, slot);
-	}
-
-
-private:
 	// connect to lambda
-	template <typename R, Qt::ConnectionType Ct, typename TSignal, typename TObject, typename... A, typename Fn>
-	static void ConnectInternal(TObject* sender, TSignal(TObject::* signal)(A...), const QObject* context, Fn lambda) {
-		QObject::connect(sender, signal, context ? context : sender, [=](A... args) {
-			if constexpr (std::is_same_v<R, void>) {
-				lambda(std::forward<A>(args)...);
-			}
-			else {
-				return TSignal{ lambda(std::forward<A>(args)...) };
-			}
-			}, Ct);
+	template <typename R, typename... A, typename Fn>
+	void Connect(R(TPublic::* signal)(A...), const QObject* context, Fn lambda) {
+		QtConnection::Connect(publicSignals.get(), signal, context, lambda);
 	}
 
 	// connect to class member
-	template <typename R, Qt::ConnectionType Ct, typename TSignal, typename TObject, typename... A, typename Fn>
-	static void ConnectInternal(TObject* sender, TSignal(TObject::* signal)(A...), typename QtPrivate::FunctionPointer<Fn>::Object* receiver, Fn slot) {
-		QObject::connect(sender, signal, receiver, [=](A... args) {
-			if constexpr (std::is_same_v<R, void>) {
-				(receiver->*slot)(std::forward<A>(args)...);
-			}
-			else {
-				return TSignal{ (receiver->*slot)(std::forward<A>(args)...) };
-			}
-			}, Ct);
+	template <typename R, typename... A, typename Fn>
+	void Connect(R(TPublic::* signal)(A...), /*const*/ typename QtPrivate::FunctionPointer<Fn>::Object* receiver, Fn slot) {
+		QtConnection::Connect(publicSignals.get(), signal, receiver, slot);
 	}
 
-//protected:
-//	std::unique_ptr<TPublic> publicSignals;
-//	std::unique_ptr<TPrivate> privateSignals; // connect manually
+protected:
+	template <typename R, typename... A, typename Fn>
+	void Connect(R(TPrivate::* signal)(A...), const QObject* context, Fn lambda) {
+		QtConnection::Connect(privateSignals.get(), signal, context, lambda);
+	}
+
+	template <typename R, typename... A, typename Fn>
+	void Connect(R(TPrivate::* signal)(A...), /*const*/ typename QtPrivate::FunctionPointer<Fn>::Object* receiver, Fn slot) {
+		QtConnection::Connect(privateSignals.get(), signal, receiver, slot);
+	}
+
+protected:
+	std::unique_ptr<TPublic> publicSignals;
+	std::unique_ptr<TPrivate> privateSignals; // connect manually
 };
 
-
-
-//template<typename R> using PublicDirect = QtConnection::PublicDirectSignal<R>;
-//template<typename R> using PublicQueued = QtConnection::PublicQueuedSignal<R>;
-//template<typename R> using PublicBlocked = QtConnection::PublicBlockedSignal<R>;
-//
-//template<typename R> using PrivateDirect = QtConnection::PrivateDirectSignal<R>;
-//template<typename R> using PrivateQueued = QtConnection::PrivateQueuedSignal<R>;
-//template<typename R> using PrivateBlocked = QtConnection::PrivateBlockedSignal<R>;
 
 
 class Second : public QObject {
@@ -132,21 +61,33 @@ public slots:
 
 };
 
-class Temp : public QObject, public QtConnection {
+
+class TempPublicSignals;
+class TempPrivateSignals;
+
+class Temp : public QObject, public QtConnectionHelper<QT_EMPTY_SIGNALS, TempPrivateSignals> {
 	Q_OBJECT
 
 public:
 	Temp();
+	void EmitSignal();
 
 signals:
 	void Foo(int);
-	
-	QtConnection::PublicQueuedSignal<void> ErrorPublic(int);
-	QtConnection::PrivateBlockedSignal<void> ErrorPrivate(int);
 
-public:
-	void EmitSignal();
-
-public:
+private:
 	Second second;
+};
+
+
+class TempPublicSignals : public QObject {
+	Q_OBJECT
+signals:
+	QtConnection::Queued<void> ErrorPublic(int);
+};
+
+class TempPrivateSignals : public QObject {
+	Q_OBJECT
+signals:
+	QtConnection::Blocked<float> ErrorPrivate(int);
 };
