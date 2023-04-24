@@ -15,9 +15,11 @@
     <ClCompile Include="Console language problem\MainWindow.cpp" />
     <ClCompile Include="Layouts\main.cpp" />
     <ClCompile Include="Layouts\MainWindow.cpp" />
+    <ClCompile Include="HelpersQt.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Console language problem\MainWindow.h" />
+    <ClInclude Include="HelpersQt.h" />
     <QtMoc Include="Layouts\MainWindow.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

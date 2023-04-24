@@ -29,10 +29,16 @@
     <ClCompile Include="Layouts\MainWindow.cpp">
       <Filter>Source Files\Layouts</Filter>
     </ClCompile>
+    <ClCompile Include="HelpersQt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Console language problem\MainWindow.h">
       <Filter>Source Files\Console language problem</Filter>
+    </ClInclude>
+    <ClInclude Include="HelpersQt.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
