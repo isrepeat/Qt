@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include "../HelpersQt.h"
 #include <QApplication>
 #include <QMimeData>
 #include <QLayout>
@@ -12,14 +13,14 @@ MainWindow::MainWindow(QWidget* parent)
 	: QMainWindow(parent) 
 {
 	QWidget* centralWidget = new QWidget(this);
-	centralWidget->setStyleSheet("QWidget{border: 1px solid green;}");
+	HelpersQt::SetStyleSheetFor({ centralWidget }, "QWidget", "border: 1px solid green;");
 
 	QVBoxLayout* vLayout = new QVBoxLayout(centralWidget);
 	centralWidget->setLayout(vLayout);
 	setCentralWidget(centralWidget);
 
 	QWidget* innerWidget = new QWidget(this);
-	innerWidget->setStyleSheet("QWidget{border: 2px solid red;}");
+	HelpersQt::SetStyleSheetFor({ innerWidget }, "QWidget", "border: 2px solid red;");
 	innerWidget->setFixedHeight(200);
 	vLayout->addWidget(innerWidget);
 
@@ -28,9 +29,15 @@ MainWindow::MainWindow(QWidget* parent)
 	auto hhLayout2 = new QHBoxLayout();
 
 
-	auto lbA = new QLabel("label A");
+	auto lbA = new QLabel();
+	lbA->setText("link = <a href=\"https://google.com/\"><span>Click Here!</span></a>");
+	//lbA->setTextFormat(Qt::RichText);
+	lbA->setTextInteractionFlags(Qt::TextBrowserInteraction);
+	lbA->setOpenExternalLinks(true);
+	HelpersQt::SetStyleSheetFor({ lbA }, "QLabel", "color: gray; border: 2px solid gray;");
+	HelpersQt::SetStyleSheetFor({ lbA }, "span", "color: red;");
+
 	auto lbB = new QLabel("label B");
-	lbA->setStyleSheet("QLabel{color: blue; border: 2px solid blue;}");
 	//hhLayout->setAlignment(Qt::AlignBottom);
 	hhLayout->addWidget(lbA);
 	hhLayout->addSpacing(50);
