@@ -11,16 +11,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Console language problem\main.cpp" />
-    <ClCompile Include="Console language problem\MainWindow.cpp" />
-    <ClCompile Include="Layouts\main.cpp" />
-    <ClCompile Include="Layouts\MainWindow.cpp" />
     <ClCompile Include="HelpersQt.cpp" />
+    <ClCompile Include="[1] Console language problem\main.cpp" />
+    <ClCompile Include="[1] Console language problem\MainWindow.cpp" />
+    <ClCompile Include="[2] Layouts\main.cpp" />
+    <ClCompile Include="[2] Layouts\MainWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Console language problem\MainWindow.h" />
     <ClInclude Include="HelpersQt.h" />
-    <QtMoc Include="Layouts\MainWindow.h" />
+    <ClInclude Include="[1] Console language problem\MainWindow.h" />
+    <ClInclude Include="[2] Layouts\MainWindow.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{048D6A8F-4CA3-45FA-9749-1D3F7E60D449}</ProjectGuid>
