@@ -32,5 +32,8 @@
     <ClCompile Include="main_2_remove_files_from_one_dir_to_another.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="main_3_StyleSheets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
