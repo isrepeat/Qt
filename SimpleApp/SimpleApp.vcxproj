@@ -16,11 +16,16 @@
     <ClCompile Include="[1] Console language problem\MainWindow.cpp" />
     <ClCompile Include="[2] Layouts\main.cpp" />
     <ClCompile Include="[2] Layouts\MainWindow.cpp" />
+    <ClCompile Include="[3] Connect expired ptr\main.cpp" />
+    <ClCompile Include="[3] Connect expired ptr\MainWindow.cpp" />
+    <ClCompile Include="[3] Connect expired ptr\RemoteDesktopWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HelpersQt.h" />
     <ClInclude Include="[1] Console language problem\MainWindow.h" />
     <ClInclude Include="[2] Layouts\MainWindow.h" />
+    <QtMoc Include="[3] Connect expired ptr\RemoteDesktopWindow.h" />
+    <QtMoc Include="[3] Connect expired ptr\MainWindow.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{048D6A8F-4CA3-45FA-9749-1D3F7E60D449}</ProjectGuid>

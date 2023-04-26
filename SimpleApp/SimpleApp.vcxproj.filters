@@ -16,7 +16,7 @@
       <UniqueIdentifier>{4951a384-4c0e-4639-86cd-cbb2c2ba709a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\[3] Connect expired ptr">
-      <UniqueIdentifier>{39680445-ff46-465a-85e0-b42d9d145cfb}</UniqueIdentifier>
+      <UniqueIdentifier>{847a989a-e105-4c25-85e4-98404b09a5be}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -35,6 +35,15 @@
     <ClCompile Include="[1] Console language problem\MainWindow.cpp">
       <Filter>Source Files\[1] Console language problem</Filter>
     </ClCompile>
+    <ClCompile Include="[3] Connect expired ptr\main.cpp">
+      <Filter>Source Files\[3] Connect expired ptr</Filter>
+    </ClCompile>
+    <ClCompile Include="[3] Connect expired ptr\MainWindow.cpp">
+      <Filter>Source Files\[3] Connect expired ptr</Filter>
+    </ClCompile>
+    <ClCompile Include="[3] Connect expired ptr\RemoteDesktopWindow.cpp">
+      <Filter>Source Files\[3] Connect expired ptr</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HelpersQt.h">
@@ -46,5 +55,13 @@
     <ClInclude Include="[2] Layouts\MainWindow.h">
       <Filter>Source Files\[2] Layouts</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="[3] Connect expired ptr\MainWindow.h">
+      <Filter>Source Files\[3] Connect expired ptr</Filter>
+    </QtMoc>
+    <QtMoc Include="[3] Connect expired ptr\RemoteDesktopWindow.h">
+      <Filter>Source Files\[3] Connect expired ptr</Filter>
+    </QtMoc>
   </ItemGroup>
 </Project>
