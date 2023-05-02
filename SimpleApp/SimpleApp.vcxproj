@@ -23,9 +23,9 @@
   <ItemGroup>
     <ClInclude Include="HelpersQt.h" />
     <ClInclude Include="[1] Console language problem\MainWindow.h" />
-    <ClInclude Include="[2] Layouts\MainWindow.h" />
-    <QtMoc Include="[3] Connect expired ptr\RemoteDesktopWindow.h" />
-    <QtMoc Include="[3] Connect expired ptr\MainWindow.h" />
+    <QtMoc Include="[2] Layouts\MainWindow.h" />
+    <ClInclude Include="[3] Connect expired ptr\RemoteDesktopWindow.h" />
+    <ClInclude Include="[3] Connect expired ptr\MainWindow.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{048D6A8F-4CA3-45FA-9749-1D3F7E60D449}</ProjectGuid>

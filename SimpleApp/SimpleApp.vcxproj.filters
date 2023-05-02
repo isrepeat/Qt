@@ -52,16 +52,16 @@
     <ClInclude Include="[1] Console language problem\MainWindow.h">
       <Filter>Source Files\[1] Console language problem</Filter>
     </ClInclude>
-    <ClInclude Include="[2] Layouts\MainWindow.h">
-      <Filter>Source Files\[2] Layouts</Filter>
+    <ClInclude Include="[3] Connect expired ptr\MainWindow.h">
+      <Filter>Source Files\[3] Connect expired ptr</Filter>
+    </ClInclude>
+    <ClInclude Include="[3] Connect expired ptr\RemoteDesktopWindow.h">
+      <Filter>Source Files\[3] Connect expired ptr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="[3] Connect expired ptr\MainWindow.h">
-      <Filter>Source Files\[3] Connect expired ptr</Filter>
-    </QtMoc>
-    <QtMoc Include="[3] Connect expired ptr\RemoteDesktopWindow.h">
-      <Filter>Source Files\[3] Connect expired ptr</Filter>
+    <QtMoc Include="[2] Layouts\MainWindow.h">
+      <Filter>Source Files\[2] Layouts</Filter>
     </QtMoc>
   </ItemGroup>
 </Project>
