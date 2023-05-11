@@ -18,6 +18,9 @@
     <Filter Include="Source Files\[3] Connect expired ptr">
       <UniqueIdentifier>{847a989a-e105-4c25-85e4-98404b09a5be}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\[4] Loader">
+      <UniqueIdentifier>{f966488b-69f8-4cd4-bae4-6dabf22b5665}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelpersQt.cpp">
@@ -44,6 +47,15 @@
     <ClCompile Include="[3] Connect expired ptr\RemoteDesktopWindow.cpp">
       <Filter>Source Files\[3] Connect expired ptr</Filter>
     </ClCompile>
+    <ClCompile Include="[4] Loader\main.cpp">
+      <Filter>Source Files\[4] Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="[4] Loader\MainWindow.cpp">
+      <Filter>Source Files\[4] Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="[4] Loader\Loader.cpp">
+      <Filter>Source Files\[4] Loader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HelpersQt.h">
@@ -58,10 +70,16 @@
     <ClInclude Include="[3] Connect expired ptr\RemoteDesktopWindow.h">
       <Filter>Source Files\[3] Connect expired ptr</Filter>
     </ClInclude>
+    <ClInclude Include="[2] Layouts\MainWindow.h">
+      <Filter>Source Files\[2] Layouts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="[2] Layouts\MainWindow.h">
-      <Filter>Source Files\[2] Layouts</Filter>
+    <QtMoc Include="[4] Loader\MainWindow.h">
+      <Filter>Source Files\[4] Loader</Filter>
+    </QtMoc>
+    <QtMoc Include="[4] Loader\Loader.h">
+      <Filter>Source Files\[4] Loader</Filter>
     </QtMoc>
   </ItemGroup>
 </Project>

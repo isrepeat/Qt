@@ -19,11 +19,16 @@
     <ClCompile Include="[3] Connect expired ptr\main.cpp" />
     <ClCompile Include="[3] Connect expired ptr\MainWindow.cpp" />
     <ClCompile Include="[3] Connect expired ptr\RemoteDesktopWindow.cpp" />
+    <ClCompile Include="[4] Loader\Loader.cpp" />
+    <ClCompile Include="[4] Loader\main.cpp" />
+    <ClCompile Include="[4] Loader\MainWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HelpersQt.h" />
     <ClInclude Include="[1] Console language problem\MainWindow.h" />
-    <QtMoc Include="[2] Layouts\MainWindow.h" />
+    <QtMoc Include="[4] Loader\Loader.h" />
+    <QtMoc Include="[4] Loader\MainWindow.h" />
+    <ClInclude Include="[2] Layouts\MainWindow.h" />
     <ClInclude Include="[3] Connect expired ptr\RemoteDesktopWindow.h" />
     <ClInclude Include="[3] Connect expired ptr\MainWindow.h" />
   </ItemGroup>
