@@ -1,6 +1,6 @@
 #if CONNECT_EXPIRED_PTR == 1
 #include "RemoteDesktopWindow.h"
-#include "../HelpersQt.h"
+#include <HelpersQt.h>
 #include <QApplication>
 #include <QMimeData>
 #include <QLayout>

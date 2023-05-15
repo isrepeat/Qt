@@ -30,31 +30,29 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="HelpersQt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="[5] StyleSheets\CustomButton.cpp">
+      <Filter>Source Files\[5] StyleSheets</Filter>
+    </ClCompile>
+    <ClCompile Include="[5] StyleSheets\CustomShadowEffect.cpp">
+      <Filter>Source Files\[5] StyleSheets</Filter>
+    </ClCompile>
     <ClCompile Include="[5] StyleSheets\main.cpp">
       <Filter>Source Files\[5] StyleSheets</Filter>
     </ClCompile>
     <ClCompile Include="[5] StyleSheets\MainWindow.cpp">
       <Filter>Source Files\[5] StyleSheets</Filter>
     </ClCompile>
-    <ClCompile Include="HelpersQt.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="[5] StyleSheets\CustomShadowEffect.cpp">
-      <Filter>Source Files\[5] StyleSheets</Filter>
-    </ClCompile>
-    <ClCompile Include="[5] StyleSheets\CustomButton.cpp">
-      <Filter>Source Files\[5] StyleSheets</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="[5] StyleSheets\MainWindow.h">
+    <QtMoc Include="[5] StyleSheets\CustomButton.h">
       <Filter>Source Files\[5] StyleSheets</Filter>
     </QtMoc>
     <QtMoc Include="[5] StyleSheets\CustomShadowEffect.h">
       <Filter>Source Files\[5] StyleSheets</Filter>
     </QtMoc>
-    <QtMoc Include="[5] StyleSheets\CustomButton.h">
-      <Filter>Source Files\[5] StyleSheets</Filter>
-    </QtMoc>
+    <QtMoc Include="[5] StyleSheets\MainWindow.h" />
   </ItemGroup>
 </Project>

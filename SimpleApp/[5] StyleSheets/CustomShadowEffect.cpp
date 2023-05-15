@@ -1,4 +1,3 @@
-#include <SharedMacros.h>
 #if STYLE_SHEETS == 1
 #include "CustomShadowEffect.h"
 #include <QPainter>

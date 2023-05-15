@@ -1,4 +1,3 @@
-#include <SharedMacros.h>
 #if STYLE_SHEETS == 1
 #include "MainWindow.h"
 #include <Windows.h>
@@ -59,13 +58,16 @@ MainWindow::MainWindow(QWidget* parent)
 	//effect->setBlurRadius(50);
 	//effect->setColor(QColor("#644CFF"));
 
+	QColor colorPurple("#644CFF");
+
 	auto bodyShadow =  std::make_unique<CustomShadowEffect>();
 	//auto bodyShadow = new CustomShadowEffect();
 	//bodyShadow->setDpiScaleFactor(devicePixelRatioF());
-	bodyShadow->setBorder(15);
-	bodyShadow->setBlurRadius(40);
+	bodyShadow->setBorder(10);
+	bodyShadow->setBlurRadius(30);
 	//bodyShadow->setDistance(15.0);
-	bodyShadow->setColor(QColor(0, 0, 0, 80));
+	//bodyShadow->setColor(QColor(0, 0, 0, 80));
+	bodyShadow->setColor(colorPurple);
 
 	pushBtn = new CustomButton("Button");
 	pushBtn->setStyleSheet(

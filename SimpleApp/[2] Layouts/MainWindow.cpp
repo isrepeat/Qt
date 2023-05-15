@@ -1,7 +1,6 @@
-#include <SharedMacros.h>
 #if LAYOUTS == 1
 #include "MainWindow.h"
-#include "../HelpersQt/HelpersQt.h"
+#include <HelpersQt.h>
 #include <QApplication>
 #include <QMimeData>
 #include <QLayout>

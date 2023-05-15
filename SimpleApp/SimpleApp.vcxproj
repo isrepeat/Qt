@@ -13,9 +13,9 @@
   <ItemGroup>
     <ClInclude Include="HelpersQt.h" />
     <ClInclude Include="SharedMacros.h" />
+    <QtMoc Include="[5] StyleSheets\MainWindow.h" />
     <QtMoc Include="[5] StyleSheets\CustomButton.h" />
     <QtMoc Include="[5] StyleSheets\CustomShadowEffect.h" />
-    <QtMoc Include="[5] StyleSheets\MainWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelpersQt.cpp" />
@@ -82,6 +82,9 @@
       <ForcedIncludeFiles>$(ProjectDir)\SharedMacros.h</ForcedIncludeFiles>
       <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
     </ClCompile>
+    <QtMoc>
+      <QtMocFileName>moc_%(Filename).cpp</QtMocFileName>
+    </QtMoc>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>

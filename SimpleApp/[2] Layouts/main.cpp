@@ -1,4 +1,3 @@
-#include <SharedMacros.h>
 #if LAYOUTS == 1
 #include <QApplication>
 #include "MainWindow.h"

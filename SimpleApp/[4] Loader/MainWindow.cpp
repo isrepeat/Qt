@@ -1,6 +1,6 @@
 #if LOADER == 1
 #include "MainWindow.h"
-#include "../HelpersQt/HelpersQt.h"
+#include <HelpersQt.h>
 #include <QApplication>
 #include <QMimeData>
 #include <QLayout>
@@ -48,7 +48,7 @@ MainWindow::MainWindow(QWidget* parent)
 
 
 	//loader = new Loader("D:\\loader.gif", this);
-	loader = new Loader("D:\\loader.gif");
+	loader = new Loader(".\\Loader.gif");
 	
 	//hhLayout->addWidget(loader);
 	//hhLayout->addSpacing(30);
