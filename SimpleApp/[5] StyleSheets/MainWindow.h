@@ -1,15 +1,13 @@
 #include <SharedMacros.h>
-#if LOADER == 1
+#if STYLE_SHEETS == 1
 #pragma once
+#include "CustomButton.h"
 #include <QMainWindow>
 #include <QPushButton>
-#include <QTextEdit>
 #include <QWidget>
 #include <QLabel>
-#include "Loader.h"
 
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:
@@ -17,10 +15,8 @@ public:
     ~MainWindow() = default;
 
 private:
-    bool loaderShown = false;
     QLabel* label;
-    Loader* loader;
-    QTextEdit* textEdit;
-    QPushButton* pushBtn;
+    //QPushButton* pushBtn;
+    CustomButton* pushBtn;
 };
 #endif

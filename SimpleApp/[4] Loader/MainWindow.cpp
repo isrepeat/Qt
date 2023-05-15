@@ -1,5 +1,6 @@
+#if LOADER == 1
 #include "MainWindow.h"
-#include "../HelpersQt.h"
+#include "../HelpersQt/HelpersQt.h"
 #include <QApplication>
 #include <QMimeData>
 #include <QLayout>
@@ -76,3 +77,4 @@ MainWindow::MainWindow(QWidget* parent)
 		loaderShown = !loaderShown;
 		});
 }
+#endif

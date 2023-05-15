@@ -1,3 +1,4 @@
+#if LOADER == 1
 #include "Loader.h"
 #include <QLayout>
 #include <QScreen>
@@ -46,3 +47,4 @@ void Loader::MoveToCenter() {
         this->move((currentScreen->availableGeometry().width() - this->width()) / 2, (currentScreen->availableGeometry().height() - this->height()) / 2);
     }
 }
+#endif
