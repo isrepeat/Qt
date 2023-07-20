@@ -1,5 +1,3 @@
-#include <SharedMacros.h>
-#if LOADER == 1
 #pragma once
 #include <QMainWindow>
 #include <QPushButton>
@@ -23,4 +21,3 @@ private:
     QTextEdit* textEdit;
     QPushButton* pushBtn;
 };
-#endif

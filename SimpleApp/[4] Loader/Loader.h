@@ -1,5 +1,3 @@
-#include <SharedMacros.h>
-#if LOADER == 1
 #pragma once
 #include <QWidget>
 #include <QLabel>
@@ -21,4 +19,3 @@ private:
 	QMovie* movie;
 	QLabel* label;
 };
-#endif

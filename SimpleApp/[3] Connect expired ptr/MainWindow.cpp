@@ -1,4 +1,3 @@
-#if CONNECT_EXPIRED_PTR == 1
 #include "MainWindow.h"
 #include "../HelpersQt/HelpersQt.h"
 #include <QApplication>
@@ -127,4 +126,3 @@ void MainWindow::SetupButtonsEvents() {
 		label->setText(QString("current size = { %1; %2 }").arg(size.width()).arg(size.height()));
 		});
 }
-#endif

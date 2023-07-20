@@ -1,4 +1,3 @@
-#if STYLE_SHEETS == 1
 #include "CustomShadowEffect.h"
 #include <QPainter>
 
@@ -148,4 +147,3 @@ QRectF CustomShadowEffect::boundingRectFor(const QRectF& rect) const {
     auto united = rect.united(adjusted);
     return united;
 }
-#endif

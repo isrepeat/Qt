@@ -1,5 +1,3 @@
-#include <SharedMacros.h>
-#if CONNECT_EXPIRED_PTR == 1
 #pragma once
 #include <QMainWindow>
 #include <QPushButton>
@@ -23,4 +21,3 @@ signals:
 private:
     QSize currentSize = { 100, 100 };
 };
-#endif

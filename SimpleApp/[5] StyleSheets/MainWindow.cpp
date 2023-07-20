@@ -1,4 +1,3 @@
-#if STYLE_SHEETS == 1
 #include "MainWindow.h"
 #include <Windows.h>
 #include <QApplication>
@@ -102,4 +101,3 @@ MainWindow::MainWindow(QWidget* parent)
 		//bodyShadow->setBorder(40);
 		});
 }
-#endif

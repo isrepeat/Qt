@@ -1,5 +1,3 @@
-#include <SharedMacros.h>
-#if STYLE_SHEETS == 1
 #pragma once
 #include "CustomButton.h"
 #include <QMainWindow>
@@ -19,4 +17,3 @@ private:
     //QPushButton* pushBtn;
     CustomButton* pushBtn;
 };
-#endif

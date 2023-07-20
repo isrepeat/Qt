@@ -1,5 +1,3 @@
-#include <SharedMacros.h>
-#if STYLE_SHEETS == 1
 #pragma once
 #include <QGraphicsDropShadowEffect>
 #include <QGraphicsEffect>
@@ -19,5 +17,3 @@ private:
 private:
     std::unique_ptr<QGraphicsEffect> onHoverEffect;
 };
-
-#endif

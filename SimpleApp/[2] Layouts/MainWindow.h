@@ -1,5 +1,3 @@
-#include <SharedMacros.h>
-#if LAYOUTS == 1
 #pragma once
 #include <QMainWindow>
 #include <QPushButton>
@@ -21,4 +19,3 @@ private:
     QTextEdit* textEdit;
     QPushButton* pushBtn;
 };
-#endif

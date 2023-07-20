@@ -1,4 +1,3 @@
-#if CONNECT_EXPIRED_PTR == 1
 #include "RemoteDesktopWindow.h"
 #include <HelpersQt.h>
 #include <QApplication>
@@ -22,4 +21,3 @@ void RemoteDesktopWindow::SetSize(QSize size) {
 	currentSize = size;
 	emit NewSize(size);
 }
-#endif

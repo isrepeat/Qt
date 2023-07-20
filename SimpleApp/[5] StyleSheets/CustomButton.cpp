@@ -1,4 +1,3 @@
-#if STYLE_SHEETS == 1
 #include "CustomButton.h"
 #include <QEvent>
 
@@ -33,6 +32,3 @@ bool CustomButton::event(QEvent* event) {
 
 	return QWidget::event(event);
 }
-
-
-#endif

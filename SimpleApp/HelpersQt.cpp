@@ -7,6 +7,7 @@ namespace {
     const int64_t secondsInWeek = 7 * 24 * 60 * 60;
 }
 
+
 bool HelpersQt::IsValidJWT(const QString& jwt) {
     if (jwt.isEmpty())
         return false;

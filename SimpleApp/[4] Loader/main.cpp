@@ -1,4 +1,3 @@
-#if LOADER == 1
 #include <QApplication>
 #include "MainWindow.h"
 
@@ -12,6 +11,6 @@ int main(int argc, char **argv)
     window->resize(800,600);
     window->show();
 
+
     return app.exec();
 }
-#endif

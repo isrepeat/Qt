@@ -1,4 +1,3 @@
-#if LAYOUTS == 1
 #include "MainWindow.h"
 #include <HelpersQt.h>
 #include <QApplication>
@@ -86,4 +85,3 @@ MainWindow::MainWindow(QWidget* parent)
 		hhLayout->addWidget(lbE);
 		});
 }
-#endif

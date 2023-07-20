@@ -1,4 +1,3 @@
-#if CONNECT_EXPIRED_PTR == 1
 #include <QApplication>
 #include "MainWindow.h"
 
@@ -13,4 +12,3 @@ int main(int argc, char **argv)
 
     return app.exec();
 }
-#endif

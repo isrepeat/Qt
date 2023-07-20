@@ -1,5 +1,3 @@
-#include <SharedMacros.h>
-#if STYLE_SHEETS == 1
 #pragma once
 #include <QGraphicsDropShadowEffect>
 #include <QGraphicsEffect>
@@ -52,5 +50,3 @@ private:
     mutable QRectF origRect;
     mutable std::mutex mx;
 };
-
-#endif

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <NewLine>%0D%0A</NewLine>
+  </PropertyGroup>
+
+  
+  
+  <Target Name="RemoveNonPlatformItems" BeforeTargets="InitializeBuildStatus">
+
+    <ItemGroup>
+      <!-- Comment folder that need to be build -->
+      <ExcludedDirsFromBuild Include="[1] Console language problem" />
+      <!--<ExcludedDirsFromBuild Include="[2] Layouts" />-->
+      <ExcludedDirsFromBuild Include="[3] Connect expired ptr" />
+      <ExcludedDirsFromBuild Include="[4] Loader" />
+      <ExcludedDirsFromBuild Include="[5] StyleSheets" />
+      
+      <ExcludedCpp Include="%(ExcludedDirsFromBuild.Identity)\*.cpp"/>
+      <ExcludedMoc Include="%(ExcludedDirsFromBuild.Identity)\*.h"/>
+
+      <ClCompile Remove="@(ExcludedCpp)" />
+      <QtMoc Remove="@(ExcludedMoc)" />
+    </ItemGroup>
+    
+    <Message Importance="High" Text="$(NewLine)" />
+    <Message Importance="High" Text="-------------------------------------" />
+    <Message Importance="High" Text="ExcludedCpp:"/>
+    <Message Importance="High" Text = "%(ExcludedCpp.Identity)"/>
+    <Message Importance="High" Text="$(NewLine)" />
+    <Message Importance="High" Text="ExcludedMoc:"/>
+    <Message Importance="High" Text = "%(ExcludedMoc.Identity)"/>
+    
+    <Message Importance="High" Text=  "$(NewLine)" />
+    <Message Importance="High" Text = "CLCompile files:"/>
+    <Message Importance="High" Text = "%(ClCompile.Identity)"/>
+    <Message Importance="High" Text=  "$(NewLine)" />
+    <Message Importance="High" Text = "QtMoc files:"/>
+    <Message Importance="High" Text = "%(QtMoc.Identity)"/>
+    <Message Importance="High" Text="-------------------------------------" />
+    <Message Importance="High" Text=  "$(NewLine)" />
+    <Message Importance="High" Text=  "$(NewLine)" />
+  </Target>
+
+</Project>

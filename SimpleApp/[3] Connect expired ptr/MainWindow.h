@@ -1,5 +1,3 @@
-#include <SharedMacros.h>
-#if CONNECT_EXPIRED_PTR == 1
 #pragma once
 #include <QMainWindow>
 #include <QPushButton>
@@ -34,4 +32,3 @@ private:
     std::vector<std::shared_ptr<RemoteDesktopWindow>> remoteDesktopWindows;
     RemoteDesktopWindow* currentRemoteDesktopWindows = nullptr;
 };
-#endif
