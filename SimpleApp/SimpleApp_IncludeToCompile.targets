@@ -12,10 +12,11 @@
     <ItemGroup>
       <!-- Comment folder that need to be build -->
       <ExcludedDirsFromBuild Include="[1] Console language problem" />
-      <!--<ExcludedDirsFromBuild Include="[2] Layouts" />-->
+      <ExcludedDirsFromBuild Include="[2] Layouts" />
       <ExcludedDirsFromBuild Include="[3] Connect expired ptr" />
       <ExcludedDirsFromBuild Include="[4] Loader" />
       <ExcludedDirsFromBuild Include="[5] StyleSheets" />
+      <!--<ExcludedDirsFromBuild Include="[6] Image to base64" />-->
       
       <ExcludedCpp Include="%(ExcludedDirsFromBuild.Identity)\*.cpp"/>
       <ExcludedMoc Include="%(ExcludedDirsFromBuild.Identity)\*.h"/>

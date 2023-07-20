@@ -20,6 +20,9 @@
     <Filter Include="Source Files\[4] Loader">
       <UniqueIdentifier>{f966488b-69f8-4cd4-bae4-6dabf22b5665}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\[6] Image to base64">
+      <UniqueIdentifier>{5c0cbca4-98e2-42f7-97a1-f198b7d4f74c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleApp_IncludeToCompile.targets" />
@@ -70,6 +73,12 @@
     <ClCompile Include="[5] StyleSheets\MainWindow.cpp">
       <Filter>Source Files\[5] StyleSheets</Filter>
     </ClCompile>
+    <ClCompile Include="[6] Image to base64\main.cpp">
+      <Filter>Source Files\[6] Image to base64</Filter>
+    </ClCompile>
+    <ClCompile Include="[6] Image to base64\MainWindow.cpp">
+      <Filter>Source Files\[6] Image to base64</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HelpersQt.h">
@@ -101,6 +110,9 @@
     </QtMoc>
     <QtMoc Include="[3] Connect expired ptr\MainWindow.h">
       <Filter>Source Files\[3] Connect expired ptr</Filter>
+    </QtMoc>
+    <QtMoc Include="[6] Image to base64\MainWindow.h">
+      <Filter>Source Files\[6] Image to base64</Filter>
     </QtMoc>
   </ItemGroup>
 </Project>
