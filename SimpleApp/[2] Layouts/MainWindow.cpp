@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget* parent)
 	QWidget* centralWidget = new QWidget(this);
 	HelpersQt::SetStyleSheetFor({ centralWidget }, "QWidget", "border: 1px solid green;");
 
-	QVBoxLayout* vLayout = new QVBoxLayout(centralWidget);
+	QVBoxLayout* vLayout = new QVBoxLayout();
 	centralWidget->setLayout(vLayout);
 	setCentralWidget(centralWidget);
 
