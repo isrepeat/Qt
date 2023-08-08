@@ -11,6 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <None Include="SimpleApp_IncludeToCompile.targets" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="HelpersQt.cpp" />
     <ClCompile Include="[1] Console language problem\main.cpp" />
     <ClCompile Include="[1] Console language problem\MainWindow.cpp" />
@@ -19,13 +22,28 @@
     <ClCompile Include="[3] Connect expired ptr\main.cpp" />
     <ClCompile Include="[3] Connect expired ptr\MainWindow.cpp" />
     <ClCompile Include="[3] Connect expired ptr\RemoteDesktopWindow.cpp" />
+    <ClCompile Include="[4] Loader\Loader.cpp" />
+    <ClCompile Include="[4] Loader\main.cpp" />
+    <ClCompile Include="[4] Loader\MainWindow.cpp" />
+    <ClCompile Include="[5] StyleSheets\CustomButton.cpp" />
+    <ClCompile Include="[5] StyleSheets\CustomShadowEffect.cpp" />
+    <ClCompile Include="[5] StyleSheets\main.cpp" />
+    <ClCompile Include="[5] StyleSheets\MainWindow.cpp" />
+    <ClCompile Include="[6] Image to base64\main.cpp" />
+    <ClCompile Include="[6] Image to base64\MainWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HelpersQt.h" />
     <ClInclude Include="[1] Console language problem\MainWindow.h" />
+    <QtMoc Include="[6] Image to base64\MainWindow.h" />
     <QtMoc Include="[2] Layouts\MainWindow.h" />
-    <ClInclude Include="[3] Connect expired ptr\RemoteDesktopWindow.h" />
-    <ClInclude Include="[3] Connect expired ptr\MainWindow.h" />
+    <QtMoc Include="[3] Connect expired ptr\MainWindow.h" />
+    <QtMoc Include="[3] Connect expired ptr\RemoteDesktopWindow.h" />
+    <QtMoc Include="[4] Loader\MainWindow.h" />
+    <QtMoc Include="[4] Loader\Loader.h" />
+    <QtMoc Include="[5] StyleSheets\MainWindow.h" />
+    <QtMoc Include="[5] StyleSheets\CustomShadowEffect.h" />
+    <QtMoc Include="[5] StyleSheets\CustomButton.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{048D6A8F-4CA3-45FA-9749-1D3F7E60D449}</ProjectGuid>
@@ -82,7 +100,11 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
     </ClCompile>
+    <QtMoc>
+      <QtMocFileName>moc_%(Filename).cpp</QtMocFileName>
+    </QtMoc>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -119,4 +141,6 @@
   </ImportGroup>
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <!-- Custom targets -->
+  <Import Project="$(ProjectDir)\SimpleApp_IncludeToCompile.targets" />
 </Project>

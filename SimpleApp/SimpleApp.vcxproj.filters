@@ -5,9 +5,11 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>qml;cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    <Filter Include="Source Files\[5] StyleSheets">
+      <UniqueIdentifier>{ffa2e2fc-4aa9-48b2-bbd7-73bf37d0dfd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\[3] Connect expired ptr">
+      <UniqueIdentifier>{847a989a-e105-4c25-85e4-98404b09a5be}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\[1] Console language problem">
       <UniqueIdentifier>{745a3dfe-f3d6-4f3d-a7a3-cbaf6076d55a}</UniqueIdentifier>
@@ -15,19 +17,34 @@
     <Filter Include="Source Files\[2] Layouts">
       <UniqueIdentifier>{4951a384-4c0e-4639-86cd-cbb2c2ba709a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\[3] Connect expired ptr">
-      <UniqueIdentifier>{847a989a-e105-4c25-85e4-98404b09a5be}</UniqueIdentifier>
+    <Filter Include="Source Files\[4] Loader">
+      <UniqueIdentifier>{f966488b-69f8-4cd4-bae4-6dabf22b5665}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\[6] Image to base64">
+      <UniqueIdentifier>{5c0cbca4-98e2-42f7-97a1-f198b7d4f74c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SimpleApp_IncludeToCompile.targets" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HelpersQt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="[2] Layouts\MainWindow.cpp">
+      <Filter>Source Files\[2] Layouts</Filter>
+    </ClCompile>
     <ClCompile Include="[2] Layouts\main.cpp">
       <Filter>Source Files\[2] Layouts</Filter>
     </ClCompile>
-    <ClCompile Include="[2] Layouts\MainWindow.cpp">
-      <Filter>Source Files\[2] Layouts</Filter>
+    <ClCompile Include="[4] Loader\Loader.cpp">
+      <Filter>Source Files\[4] Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="[4] Loader\main.cpp">
+      <Filter>Source Files\[4] Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="[4] Loader\MainWindow.cpp">
+      <Filter>Source Files\[4] Loader</Filter>
     </ClCompile>
     <ClCompile Include="[1] Console language problem\main.cpp">
       <Filter>Source Files\[1] Console language problem</Filter>
@@ -35,14 +52,32 @@
     <ClCompile Include="[1] Console language problem\MainWindow.cpp">
       <Filter>Source Files\[1] Console language problem</Filter>
     </ClCompile>
+    <ClCompile Include="[3] Connect expired ptr\RemoteDesktopWindow.cpp">
+      <Filter>Source Files\[3] Connect expired ptr</Filter>
+    </ClCompile>
     <ClCompile Include="[3] Connect expired ptr\main.cpp">
       <Filter>Source Files\[3] Connect expired ptr</Filter>
     </ClCompile>
     <ClCompile Include="[3] Connect expired ptr\MainWindow.cpp">
       <Filter>Source Files\[3] Connect expired ptr</Filter>
     </ClCompile>
-    <ClCompile Include="[3] Connect expired ptr\RemoteDesktopWindow.cpp">
-      <Filter>Source Files\[3] Connect expired ptr</Filter>
+    <ClCompile Include="[5] StyleSheets\CustomButton.cpp">
+      <Filter>Source Files\[5] StyleSheets</Filter>
+    </ClCompile>
+    <ClCompile Include="[5] StyleSheets\CustomShadowEffect.cpp">
+      <Filter>Source Files\[5] StyleSheets</Filter>
+    </ClCompile>
+    <ClCompile Include="[5] StyleSheets\main.cpp">
+      <Filter>Source Files\[5] StyleSheets</Filter>
+    </ClCompile>
+    <ClCompile Include="[5] StyleSheets\MainWindow.cpp">
+      <Filter>Source Files\[5] StyleSheets</Filter>
+    </ClCompile>
+    <ClCompile Include="[6] Image to base64\main.cpp">
+      <Filter>Source Files\[6] Image to base64</Filter>
+    </ClCompile>
+    <ClCompile Include="[6] Image to base64\MainWindow.cpp">
+      <Filter>Source Files\[6] Image to base64</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -52,16 +87,32 @@
     <ClInclude Include="[1] Console language problem\MainWindow.h">
       <Filter>Source Files\[1] Console language problem</Filter>
     </ClInclude>
-    <ClInclude Include="[3] Connect expired ptr\MainWindow.h">
-      <Filter>Source Files\[3] Connect expired ptr</Filter>
-    </ClInclude>
-    <ClInclude Include="[3] Connect expired ptr\RemoteDesktopWindow.h">
-      <Filter>Source Files\[3] Connect expired ptr</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="[2] Layouts\MainWindow.h">
       <Filter>Source Files\[2] Layouts</Filter>
+    </QtMoc>
+    <QtMoc Include="[4] Loader\Loader.h">
+      <Filter>Source Files\[4] Loader</Filter>
+    </QtMoc>
+    <QtMoc Include="[4] Loader\MainWindow.h" />
+    <QtMoc Include="[3] Connect expired ptr\RemoteDesktopWindow.h">
+      <Filter>Source Files\[3] Connect expired ptr</Filter>
+    </QtMoc>
+    <QtMoc Include="[5] StyleSheets\CustomButton.h">
+      <Filter>Source Files\[5] StyleSheets</Filter>
+    </QtMoc>
+    <QtMoc Include="[5] StyleSheets\CustomShadowEffect.h">
+      <Filter>Source Files\[5] StyleSheets</Filter>
+    </QtMoc>
+    <QtMoc Include="[5] StyleSheets\MainWindow.h">
+      <Filter>Source Files\[5] StyleSheets</Filter>
+    </QtMoc>
+    <QtMoc Include="[3] Connect expired ptr\MainWindow.h">
+      <Filter>Source Files\[3] Connect expired ptr</Filter>
+    </QtMoc>
+    <QtMoc Include="[6] Image to base64\MainWindow.h">
+      <Filter>Source Files\[6] Image to base64</Filter>
     </QtMoc>
   </ItemGroup>
 </Project>

@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget* parent)
 	QWidget* centralWidget = new QWidget(this);
 	HelpersQt::SetStyleSheetFor({ centralWidget }, "QWidget", "border: 1px solid green;");
 
-	QVBoxLayout* vLayout = new QVBoxLayout();
+	QVBoxLayout* vLayout = new QVBoxLayout(centralWidget);
 	centralWidget->setLayout(vLayout);
 	setCentralWidget(centralWidget);
 
@@ -46,28 +46,16 @@ MainWindow::MainWindow(QWidget* parent)
 	auto hhLayout2 = new QHBoxLayout();
 
 
-	auto lbA = new QLabel();
-	lbA->setText("link = <a href=\"https://google.com/\"><span>Click Here!</span></a>");
-	//lbA->setTextFormat(Qt::RichText);
-	lbA->setTextInteractionFlags(Qt::TextBrowserInteraction);
-	lbA->setOpenExternalLinks(true);
-	HelpersQt::SetStyleSheetFor({ lbA }, "QLabel", "color: gray; border: 2px solid gray;");
-	HelpersQt::SetStyleSheetFor({ lbA }, "span", "color: red;");
-
-	auto lbB = new QLabel("label B");
-	auto lbC = new QLabel("label C");
+	//loader = new Loader("D:\\loader.gif", this);
+	loader = new Loader(".\\Loader.gif");
+	
+	//hhLayout->addWidget(loader);
+	//hhLayout->addSpacing(30);
 
 
-	hhLayout->addWidget(lbA);
-	hhLayout->addSpacing(30);
-	hhLayout->addWidget(lbB);
-	hhLayout->addSpacing(30);
-	hhLayout->addWidget(lbC);
 
-
-	auto pbA = new QPushButton("Some button text");
+	auto pbA = new QPushButton("Show lodaer");
 	pbA->setStyleSheet("QPushButton{color: brown; border: 2px solid brown;}");
-	//hhLayout2->setAlignment(Qt::AlignBottom);
 	hhLayout2->addWidget(pbA);
 
 
@@ -77,11 +65,14 @@ MainWindow::MainWindow(QWidget* parent)
 
 
 	connect(pbA, &QPushButton::clicked, [=] {
-		ClearLayout(hhLayout);
-		auto lbD = new QLabel("label D");
-		auto lbE = new QLabel("label E");
-		hhLayout->addWidget(lbD);
-		hhLayout->addSpacing(70);
-		hhLayout->addWidget(lbE);
+		if (loaderShown) {
+			loader->Hide();
+			pbA->setText("Show lodaer");
+		}
+		else {
+			loader->Show();
+			pbA->setText("Hide lodaer");
+		}
+		loaderShown = !loaderShown;
 		});
 }
