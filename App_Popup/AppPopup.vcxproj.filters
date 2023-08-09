@@ -29,7 +29,7 @@
     <ClCompile Include="MainWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PopUp.cpp">
+    <ClCompile Include="PopUpMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -37,7 +37,7 @@
     <QtMoc Include="MainWindow.h">
       <Filter>Source Files</Filter>
     </QtMoc>
-    <QtMoc Include="PopUp.h">
+    <QtMoc Include="PopUpMessage.h">
       <Filter>Source Files</Filter>
     </QtMoc>
   </ItemGroup>
