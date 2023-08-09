@@ -31,6 +31,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "App_DxMultioutput", "App_Dx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleApp", "SimpleApp\SimpleApp.vcxproj", "{048D6A8F-4CA3-45FA-9749-1D3F7E60D449}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3rdParty", "3rdParty", "{7E767CCC-6AF6-420C-912F-13DDB0134521}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QDeferred", "3rdParty\QDeferred\QDeferred.vcxproj", "{DC0B5BA9-AE07-4130-A286-27F12406A17A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -81,6 +85,10 @@ Global
 		{048D6A8F-4CA3-45FA-9749-1D3F7E60D449}.Debug|x64.Build.0 = Debug|x64
 		{048D6A8F-4CA3-45FA-9749-1D3F7E60D449}.Release|x64.ActiveCfg = Release|x64
 		{048D6A8F-4CA3-45FA-9749-1D3F7E60D449}.Release|x64.Build.0 = Release|x64
+		{DC0B5BA9-AE07-4130-A286-27F12406A17A}.Debug|x64.ActiveCfg = Debug|x64
+		{DC0B5BA9-AE07-4130-A286-27F12406A17A}.Debug|x64.Build.0 = Debug|x64
+		{DC0B5BA9-AE07-4130-A286-27F12406A17A}.Release|x64.ActiveCfg = Release|x64
+		{DC0B5BA9-AE07-4130-A286-27F12406A17A}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +98,7 @@ Global
 		{962B2481-7600-4E38-AC64-74F303BC8825} = {9645F929-8EE8-494E-9C78-826060D73449}
 		{22B70592-CBE3-4457-9B82-823E502A9641} = {1716ECD3-D504-4B4E-83DC-9987CAB2773F}
 		{55EC8DF4-01F5-470D-BFAA-FECADEB2C5C1} = {22B70592-CBE3-4457-9B82-823E502A9641}
+		{DC0B5BA9-AE07-4130-A286-27F12406A17A} = {7E767CCC-6AF6-420C-912F-13DDB0134521}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D0E2A8EA-9055-4BA7-80CA-7066B132CD6A}

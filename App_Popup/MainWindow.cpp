@@ -8,8 +8,7 @@
 #include <thread>
 #include <Windows.h>
 #include <QProcess>
-
-std::unique_ptr<PopUpMessage> g_popUpMessage;
+#include <QDeferred/QDeferred>
 
 AppFeatures& AppFeatures::GetInstance() {
 	static AppFeatures instance;
@@ -21,11 +20,7 @@ AppFeatures::AppFeatures()
 }
 
 void AppFeatures::Hello() {
-#ifdef SINGLETON
-	PopUpMessage::ShowMessage("H E L L O");
-#else
-	popupMessage.ShowMessage("H E L L O");
-#endif
+	//PopUpMessage::ShowMessage("H E L L O");
 }
 
 
@@ -35,18 +30,8 @@ MainWindow::MainWindow(QWidget* parent)
 	QWidget* centralWidget = new QWidget(this);
 	centralWidget->setStyleSheet("QWidget{border: 1px solid green;}");
 
-	//g_popUpMessage = std::make_unique<PopUpMessage>();
-
-	//QObject::connect(this, &MainWindow::Exit, qApp, &QApplication::quit);
-	QObject::connect(qApp, &QCoreApplication::aboutToQuit, this, [this] {
-		int xx = 9;
-		});
-
-
 	QObject::connect(this, &MainWindow::Exit, qApp, [this] {
 		QApplication::quit();
-		//QApplication::exit(0);
-		//exit(0);
 		}, Qt::QueuedConnection);
 
 
@@ -81,22 +66,49 @@ MainWindow::MainWindow(QWidget* parent)
 	vvLayout->addLayout(hhLayout2);
 
 	connect(pbA, &QPushButton::clicked, [this] {
-		//PopUpMessage::ShowMessage("Added to clipboard");
-		AppFeatures::GetInstance().Hello();
+		//PopUpMessager::ShowMessage("O N E");
+		//PopUpMessager::ShowMessage("T W O");
+		//PopUpMessager::ShowMessage("T H R E E"); 
 
-		//{
-		//	PopUpMessage* popUpMessage = new PopUpMessage();
-		//	popUpMessage->ShowMessage("AAA BBB");
-		//}
 
-		//g_popUpMessage->ShowMessage("Global");
-		////g_popUpMessage->deleteLater();
+		// init
+		QDefer defer1;
+		// reject before
+		defer1.reject(); // reject here
+		// subscribe then callback
+		defer1.then<int>([]() {
+			QDeferred<int> defer2;
+			//REQUIRE(false);
+			// return deferred
+			return defer2;
+			}, []() { // fail over 'defer1' with zero arguments
+				// test that gets called
+				//REQUIRE(true);
+			}).fail([](int val) {
+				// fail over 'defer2', which is not resolved nor rejected, therefore not called
+				Q_UNUSED(val);
+				//REQUIRE(false);
+				});
 
-		//m_popUpMessage.ShowMessage("Member");
 
-		QTimer::singleShot(1'500, [this] {
-			emit Exit();
-			});
+
+
+		//QTimer::singleShot(500, [this] { 
+		//	PopUpMessager::ShowMessage("T W O"); 
+
+		//	QTimer::singleShot(500, [this] { 
+		//		
+		//		QTimer::singleShot(500, [this] {
+		//			PopUpMessager::ShowMessage("F O U R");
+		//			});
+		//		});
+		//	});
+		
+
+
+		//QTimer::singleShot(2000, [this] {
+		//	emit Exit();
+		//	});
 		});
 }
 

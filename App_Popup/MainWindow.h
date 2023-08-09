@@ -6,7 +6,6 @@
 #include <QLabel>
 #include "PopUpMessage.h"
 
-
 class AppFeatures : public QObject {
 private:
     AppFeatures();
@@ -15,12 +14,8 @@ public:
     static AppFeatures& GetInstance();
 
     void Hello();
-
-#ifndef SINGLETON
-private:
-    PopUpMessage popupMessage;
-#endif
 };
+
 
 class MainWindow : public QMainWindow {
     Q_OBJECT

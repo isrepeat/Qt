@@ -95,7 +95,6 @@
     <QtMoc Include="[4] Loader\Loader.h">
       <Filter>Source Files\[4] Loader</Filter>
     </QtMoc>
-    <QtMoc Include="[4] Loader\MainWindow.h" />
     <QtMoc Include="[3] Connect expired ptr\RemoteDesktopWindow.h">
       <Filter>Source Files\[3] Connect expired ptr</Filter>
     </QtMoc>
@@ -113,6 +112,9 @@
     </QtMoc>
     <QtMoc Include="[6] Image to base64\MainWindow.h">
       <Filter>Source Files\[6] Image to base64</Filter>
+    </QtMoc>
+    <QtMoc Include="[4] Loader\MainWindow.h">
+      <Filter>Source Files\[4] Loader</Filter>
     </QtMoc>
   </ItemGroup>
 </Project>

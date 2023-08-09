@@ -7,23 +7,58 @@
 #include <thread>
 
 
-#ifdef SINGLETON
-PopUpMessage& PopUpMessage::GetInstance() {
-    static PopUpMessage instance;
-    return instance;
+AnimationTwoPass::AnimationTwoPass(QObject* targetObject, QString propertyName, QString selfName)
+    : timer{ new QTimer(this) }
+    , selfName{ selfName }
+    , animationPass{ 0 }
+{
+    animation.setTargetObject(targetObject);
+    animation.setPropertyName(propertyName.toUtf8());
+    connect(&animation, &QAbstractAnimation::finished, this, [this] {
+        if (--animationPass == 0) {
+            emit Finished(this->selfName);
+        }
+        });
 }
-#endif
 
-PopUpMessage::PopUpMessage(QWidget* parent)
+
+void AnimationTwoPass::StartAnimation(float startValue, float endValue, int durationShowMs, int durationIdleMs, int durationHideMs) {
+    if (animationPass.exchange(AnimationTwoPass::PASS_COUNT))
+        return; // return if previous value != 0
+
+    disconnect(timer, &QTimer::timeout, nullptr, nullptr);
+    connect(timer, &QTimer::timeout, this, [=] {
+        timer->stop();
+        animation.setDuration(durationHideMs);
+        animation.setStartValue(endValue);
+        animation.setEndValue(startValue);
+        animation.start();
+        });
+
+    animation.setDuration(durationShowMs);
+    animation.setStartValue(startValue);
+    animation.setEndValue(endValue);
+    animation.start();
+
+    timer->start(durationShowMs + durationIdleMs);
+}
+
+bool AnimationTwoPass::IsFinished() {
+    return animationPass == 0;
+}
+
+
+
+
+
+PopUpMessage::PopUpMessage(QString selfName, QWidget* parent)
     : QWidget(parent)
+    , selfName{ selfName }
+    , animation { this, "popupOpacity", selfName + "_[anim]" }
 {
     setWindowFlags(Qt::FramelessWindowHint | Qt::Tool | Qt::WindowStaysOnTopHint);
     setAttribute(Qt::WA_TranslucentBackground);
     setAttribute(Qt::WA_ShowWithoutActivating);
-
-    animation.setTargetObject(this);
-    animation.setPropertyName("popupOpacity");
-    connect(&animation, &QAbstractAnimation::finished, this, &PopUpMessage::Hide);
 
     label.setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     label.setStyleSheet("QLabel { color : white; "
@@ -35,71 +70,47 @@ PopUpMessage::PopUpMessage(QWidget* parent)
     layout.addWidget(&label, 0, 0);
     setLayout(&layout);
 
-    timer = new QTimer(this);
-    connect(timer, &QTimer::timeout, this, &PopUpMessage::HideAnimation);
-
+    connect(&animation, &AnimationTwoPass::Finished, this, &PopUpMessage::Hide);
 
     QObject::connect(qApp, &QCoreApplication::aboutToQuit, this, [this] {
-        QWidget::hide(); // widget must be hidden when app event loop end
+        QWidget::hide(); // widget must be hidden when app event loop was finished but animation is not finished
         });
 }
 
-PopUpMessage::~PopUpMessage() {
-    int xxx = 9;
-}
 
-
-void PopUpMessage::ShowMessage(const QString& text) {
-#ifdef SINGLETON
-    GetInstance().ShowMessageInternal(text);
-#else
-    ShowMessageInternal(text);
-#endif
-}
-
-
-
-void PopUpMessage::HideAnimation() {
-    timer->stop();
-    animation.setDuration(1000);
-    animation.setStartValue(1.0);
-    animation.setEndValue(0.0);
-    animation.start();
-}
-
-void PopUpMessage::Hide() {
-    if (getPopupOpacity() == 0.0) { // TODO: rewrite this workaround
-        QWidget::hide();
-    }
-}
-
-void PopUpMessage::ShowMessageInternal(const QString& text) {
+void PopUpMessage::ShowMessage(const QString& text, int id) {
     label.setText(text);
     adjustSize();
 
+    auto padding = 15;
+    auto offsetBetweenY = 15;
+
+    auto desktopGeometry = QApplication::desktop()->availableGeometry();
+    auto startX = desktopGeometry.x() + (desktopGeometry.width() - width()) - padding;
+    auto startY = desktopGeometry.y() + (desktopGeometry.height() - height()) - (padding + id * (height() + offsetBetweenY));
+    setGeometry(startX, startY, width(), height());
+    
     setWindowOpacity(0.0);
 
-    animation.setDuration(150);
-    animation.setStartValue(0.0);
-    animation.setEndValue(1.0);
-
-    setGeometry(QApplication::desktop()->availableGeometry().width() - 14 - width() + QApplication::desktop()->availableGeometry().x(),
-        QApplication::desktop()->availableGeometry().height() - 14 - height() + QApplication::desktop()->availableGeometry().y(),
-        width(),
-        height());
-
     QWidget::show();
-
-    animation.start();
-    timer->start(3000);
+    animation.StartAnimation(0.0, 1.0, 150, 3000, 1000);
+    //animation.StartAnimation(0.0, 1.0, 1000, 1000, 1000); // total animation duration = 2s
 }
 
-void PopUpMessage::setPopupOpacity(float opacity) {
+bool PopUpMessage::IsFinished() {
+    return animation.IsFinished();
+}
+
+void PopUpMessage::Hide(QString animationName) {
+    QWidget::hide();
+}
+
+void PopUpMessage::SetPopupOpacity(float opacity) {
     popupOpacity = opacity;
     setWindowOpacity(opacity);
 }
 
-float PopUpMessage::getPopupOpacity() const {
+float PopUpMessage::GetPopupOpacity() const {
     return popupOpacity;
 }
 
@@ -119,4 +130,47 @@ void PopUpMessage::paintEvent(QPaintEvent* event) {
     painter.setPen(Qt::NoPen);
 
     painter.drawRoundedRect(roundedRect, 10, 10);
+}
+
+
+
+
+
+
+
+PopUpMessager& PopUpMessager::GetInstance() {
+    static PopUpMessager instance;
+    return instance;
+}
+
+PopUpMessager::PopUpMessager(QObject* parent)
+    : QObject(parent)
+    , popUpMessages{ CreatePopUpMessages(5) }
+{
+}
+
+std::deque<PopUpMessage> PopUpMessager::CreatePopUpMessages(int count) {
+    std::deque<PopUpMessage> popUpMessagesTmp;
+    for (int i = 0; i < count; i++) {
+        popUpMessagesTmp.emplace_back(QString("popUpMessage_%1").arg(i), nullptr);
+    }
+    return popUpMessagesTmp;
+}
+
+
+void PopUpMessager::ShowMessage(const QString& text) {
+    auto& _this = GetInstance();
+
+    int messageId = 0; // id after last not hidden message
+    for (int i = 0; i < _this.popUpMessages.size(); i++) {
+        bool isHidden = _this.popUpMessages[i].isHidden();
+        bool isFinished = _this.popUpMessages[i].IsFinished();
+        if (!_this.popUpMessages[i].IsFinished()) {
+            messageId = i + 1;
+        }
+    }
+
+    if (messageId < _this.popUpMessages.size()) {
+        _this.popUpMessages[messageId].ShowMessage(text, messageId);
+    }
 }
