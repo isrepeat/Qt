@@ -23,6 +23,9 @@
     <Filter Include="Source Files\[6] Image to base64">
       <UniqueIdentifier>{5c0cbca4-98e2-42f7-97a1-f198b7d4f74c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\[7] Json mapper">
+      <UniqueIdentifier>{1e58142a-8c4a-40d5-9d7a-e1f56b3b7731}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleApp_IncludeToCompile.targets" />
@@ -78,6 +81,9 @@
     </ClCompile>
     <ClCompile Include="[6] Image to base64\MainWindow.cpp">
       <Filter>Source Files\[6] Image to base64</Filter>
+    </ClCompile>
+    <ClCompile Include="[7] Json mapper\main.cpp">
+      <Filter>Source Files\[7] Json mapper</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

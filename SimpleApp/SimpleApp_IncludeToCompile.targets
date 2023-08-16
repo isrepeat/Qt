@@ -5,8 +5,13 @@
     <NewLine>%0D%0A</NewLine>
   </PropertyGroup>
 
-  
-  
+  <ItemDefinitionGroup>
+    <Link>
+      <!--<SubSystem>Windows</SubSystem>-->
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+
   <Target Name="RemoveNonPlatformItems" BeforeTargets="InitializeBuildStatus">
 
     <ItemGroup>
@@ -16,7 +21,8 @@
       <ExcludedDirsFromBuild Include="[3] Connect expired ptr" />
       <ExcludedDirsFromBuild Include="[4] Loader" />
       <ExcludedDirsFromBuild Include="[5] StyleSheets" />
-      <!--<ExcludedDirsFromBuild Include="[6] Image to base64" />-->
+      <ExcludedDirsFromBuild Include="[6] Image to base64" />
+      <!--<ExcludedDirsFromBuild Include="[7] Json mapper" />-->
       
       <ExcludedCpp Include="%(ExcludedDirsFromBuild.Identity)\*.cpp"/>
       <ExcludedMoc Include="%(ExcludedDirsFromBuild.Identity)\*.h"/>
