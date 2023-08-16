@@ -2,50 +2,8 @@
 #include <string>
 #include <vector>
 #include <QString>
+#include <QVector>
 #include <json_struct/json_struct.h>
-
-
-namespace JS
-{
-    template<>
-    struct TypeHandler<QString>
-    {
-        static inline Error to(QString& to_type, ParseContext& context)
-        {
-            auto error = JS::Error::NoError;
-
-            std::string result;
-            error = TypeHandler<std::string>::to(result, context);
-
-            if (error != JS::Error::NoError) {
-                return error;
-            }
-
-            to_type = QString::fromStdString(result);
-            return error;
-        }
-
-        static inline void from(const QString& from_type, Token& token, Serializer& serializer)
-        {
-            auto str = from_type.toStdString();
-            return TypeHandler<std::string>::from(str, token, serializer);
-        }
-    };
-}
-
-
-struct Purchase {
-    int id = -1;
-    float price;
-    QString name = "...";
-    //std::string name = "...";
-
-    JS_OBJECT(
-        JS_MEMBER_ALIASES(id, "Id"),
-        JS_MEMBER_ALIASES(name, "Name"),
-        JS_MEMBER_ALIASES(price, "Price")
-    );
-};
 
 
 struct Picture {
@@ -55,72 +13,15 @@ struct Picture {
 
 namespace JS
 {
-    template<>
-    struct TypeHandler<Picture>
-    {
-        static inline Error to(Picture& to_type, ParseContext& context)
-        {
-            //There exists a TypeHandler for T[N] already, so all we have to do is unwrap the
-            //data and call the other TypeHandler specialisation
-            //return TypeHandler<std::vector<uint8_t>>::to(to_type.imageData, context);
+    template <typename T>
+    struct JsonObjectWrapper {
+        JsonObjectWrapper(T& valueRef)
+            : valueRef{ valueRef }
+        {}
 
-            auto error = JS::Error::NoError;
-
-            std::string bytes;
-            error = TypeHandler<std::string>::to(bytes, context);
-
-            if (error != JS::Error::NoError) {
-                return error;
-            }
-
-            to_type.imageData = std::vector<uint8_t>(bytes.begin(), bytes.end());
-            return error;
-        }
-
-        static inline void from(const Picture& from_type, Token& token, Serializer& serializer)
-        {
-            //return TypeHandler<std::vector<uint8_t>>::from(from_type.imageData, token, serializer);
-
-            auto bytes = std::string(from_type.imageData.begin(), from_type.imageData.end());
-            return TypeHandler<std::string>::from(bytes, token, serializer);
-        }
+        T& valueRef;
     };
-}
 
-
-
-struct Person {
-    //Purchase purchases[4];
-    //std::vector<Purchase> purchases;
-    std::vector<Purchase> purchases;
-    std::string firstName = "First Name";
-    std::string secondName = "Second Name";
-    //std::vector<uint8_t> userPicture{ 11, 22, 33, 44 };
-    Picture userPicture;
-
-    JS_OBJECT(
-        JS_MEMBER_ALIASES(purchases, "Purchases"),
-        JS_MEMBER_ALIASES(firstName, "FirstName"),
-        JS_MEMBER_ALIASES(secondName, "SecondName"),
-        JS_MEMBER_ALIASES(userPicture, "UserPicture")
-    );
-};
-
-
-
-
-template <typename T>
-struct JsonObjectWrapper {
-    JsonObjectWrapper(T& valueRef)
-        : valueRef{ valueRef }
-    {}
-
-    T& valueRef;
-};
-
-
-namespace JS
-{
     template <typename T>
     struct TypeHandler<JsonObjectWrapper<T>>
     {
@@ -162,13 +63,147 @@ namespace JS
             serializer.write(token);
         }
     };
-} // namespace JS
+
+    template<>
+    struct TypeHandler<QString>
+    {
+        static inline Error to(QString& to_type, ParseContext& context)
+        {
+            auto error = JS::Error::NoError;
+
+            std::string result;
+            error = TypeHandler<std::string>::to(result, context);
+
+            if (error != JS::Error::NoError) {
+                return error;
+            }
+
+            to_type = QString::fromStdString(result);
+            return error;
+        }
+
+        static inline void from(const QString& from_type, Token& token, Serializer& serializer)
+        {
+            auto str = from_type.toStdString();
+            return TypeHandler<std::string>::from(str, token, serializer);
+        }
+    };
 
 
+    template <typename T>
+    struct TypeHandler<QVector<T>>
+    {
+        static inline Error to(QVector<T>& to_type, ParseContext& context)
+        {
+            if (context.token.value_type != JS::Type::ArrayStart)
+                return Error::ExpectedArrayStart;
+
+            Error error = context.nextToken();
+            if (error != JS::Error::NoError)
+                return error;
+
+            to_type.clear();
+            to_type.reserve(10);
+
+            while (context.token.value_type != JS::Type::ArrayEnd)
+            {
+                to_type.push_back(T());
+                error = TypeHandler<T>::to(to_type.back(), context);
+                if (error != JS::Error::NoError)
+                    break;
+
+                error = context.nextToken();
+                if (error != JS::Error::NoError)
+                    break;
+            }
+
+            return error;
+        }
+
+        static inline void from(const QVector<T>& vec, Token& token, Serializer& serializer)
+        {
+            token.value_type = Type::ArrayStart;
+            token.value = DataRef("[");
+            serializer.write(token);
+
+            token.name = DataRef("");
+
+            for (auto& index : vec){
+                TypeHandler<T>::from(index, token, serializer);
+            }
+
+            token.name = DataRef("");
+
+            token.value_type = Type::ArrayEnd;
+            token.value = DataRef("]");
+            serializer.write(token);
+        }
+    };
 
 
+    template<>
+    struct TypeHandler<Picture>
+    {
+        static inline Error to(Picture& to_type, ParseContext& context)
+        {
+            //There exists a TypeHandler for T[N] already, so all we have to do is unwrap the
+            //data and call the other TypeHandler specialisation
+            //return TypeHandler<std::vector<uint8_t>>::to(to_type.imageData, context);
+
+            auto error = JS::Error::NoError;
+
+            std::string bytes;
+            error = TypeHandler<std::string>::to(bytes, context);
+
+            if (error != JS::Error::NoError) {
+                return error;
+            }
+
+            to_type.imageData = std::vector<uint8_t>(bytes.begin(), bytes.end());
+            return error;
+        }
+
+        static inline void from(const Picture& from_type, Token& token, Serializer& serializer)
+        {
+            //return TypeHandler<std::vector<uint8_t>>::from(from_type.imageData, token, serializer);
+
+            auto bytes = std::string(from_type.imageData.begin(), from_type.imageData.end());
+            return TypeHandler<std::string>::from(bytes, token, serializer);
+        }
+    };
+}
 
 
+struct Purchase {
+    int id = -1;
+    float price;
+    QString name = "...";
+    //std::string name = "...";
+
+    JS_OBJECT(
+        JS_MEMBER_ALIASES(id, "Id"),
+        JS_MEMBER_ALIASES(name, "Name"),
+        JS_MEMBER_ALIASES(price, "Price")
+    );
+};
+
+
+struct Person {
+    //Purchase purchases[4];
+    //std::vector<Purchase> purchases;
+    std::vector<Purchase> purchases;
+    std::string firstName = "First Name";
+    std::string secondName = "Second Name";
+    //std::vector<uint8_t> userPicture{ 11, 22, 33, 44 };
+    Picture userPicture;
+
+    JS_OBJECT(
+        JS_MEMBER_ALIASES(purchases, "Purchases"),
+        JS_MEMBER_ALIASES(firstName, "FirstName"),
+        JS_MEMBER_ALIASES(secondName, "SecondName"),
+        JS_MEMBER_ALIASES(userPicture, "UserPicture")
+    );
+};
 
 
 
@@ -242,7 +277,7 @@ void TestParseComplexJson() {
         )json";
 
         //QString promotionToken;
-        //JsonObjectWrapper jsonObjectWrapper{ promotionToken };
+        //JS::JsonObjectWrapper jsonObjectWrapper{ promotionToken };
         //printf("Token [src]: \n%s", JS::serializeStruct(jsonObjectWrapper).c_str());
 
         //JS::ParseContext parseContext(jsonToken);
@@ -272,8 +307,9 @@ void TestParseComplexJson() {
         )json";
 
 
-        std::vector<Purchase> boughtPurchases;
-        JsonObjectWrapper jsObjectWrapper{ boughtPurchases };
+        QVector<Purchase> boughtPurchases;
+        //std::vector<Purchase> boughtPurchases;
+        JS::JsonObjectWrapper jsObjectWrapper{ boughtPurchases };
 
         //printf("Bought purchases [src]: \n%s", JS::serializeStruct(JsonObjectWrapper(purchases)).c_str());
         //printf("Bought purchases [src]: \n%s", JS::serializeStruct(boughtPurchases).c_str());
