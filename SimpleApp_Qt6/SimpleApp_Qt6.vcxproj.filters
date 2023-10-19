@@ -28,6 +28,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="[1] Layouts\MainWindow.h" />
+    <QtMoc Include="[1] Layouts\MainWindow.h">
+      <Filter>Sources\[1] Layouts</Filter>
+    </QtMoc>
   </ItemGroup>
 </Project>
