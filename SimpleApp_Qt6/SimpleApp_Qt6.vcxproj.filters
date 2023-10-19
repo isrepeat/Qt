@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{17063410-74b3-4d16-a72d-af897a49c71c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\[1] Layouts">
+      <UniqueIdentifier>{c9f014ec-fb4b-44dd-ab4d-c7743d087666}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SimpleApp_Qt6_IncludeToCompile.targets" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="[1] Layouts\main.cpp">
+      <Filter>Sources\[1] Layouts</Filter>
+    </ClCompile>
+    <ClCompile Include="[1] Layouts\MainWindow.cpp">
+      <Filter>Sources\[1] Layouts</Filter>
+    </ClCompile>
+    <ClCompile Include="HelpersQt.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HelpersQt.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="[1] Layouts\MainWindow.h" />
+  </ItemGroup>
+</Project>
