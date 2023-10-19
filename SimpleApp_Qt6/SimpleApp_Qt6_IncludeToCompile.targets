@@ -3,12 +3,12 @@
   <PropertyGroup>
     <NewLine>%0D%0A</NewLine>
   </PropertyGroup>
-  
-  <!-- Force rewrite needed sub system -->
-  <ItemDefinitionGroup>
+
+   <!--Force rewrite needed sub system--> 
+  <ItemDefinitionGroup  Label="Configuration">
     <Link>
-      <!--<SubSystem>Windows</SubSystem>-->
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
+      <!--<SubSystem>Console</SubSystem>-->
     </Link>
   </ItemDefinitionGroup>
 
@@ -16,21 +16,15 @@
 
     <ItemGroup>
       <!-- Comment folder that need to be build -->
-      <ExcludedDirsFromBuild Include="[1] Console language problem" />
-      <ExcludedDirsFromBuild Include="[2] Layouts" />
-      <ExcludedDirsFromBuild Include="[3] Connect expired ptr" />
-      <ExcludedDirsFromBuild Include="[4] Loader" />
-      <ExcludedDirsFromBuild Include="[5] StyleSheets" />
-      <ExcludedDirsFromBuild Include="[6] Image to base64" />
-      <!--<ExcludedDirsFromBuild Include="[7] Json mapper" />-->
-      
+      <!--<ExcludedDirsFromBuild Include="[1] Layouts" />-->
+
       <ExcludedCpp Include="%(ExcludedDirsFromBuild.Identity)\*.cpp"/>
       <ExcludedMoc Include="%(ExcludedDirsFromBuild.Identity)\*.h"/>
 
       <ClCompile Remove="@(ExcludedCpp)" />
       <QtMoc Remove="@(ExcludedMoc)" />
     </ItemGroup>
-    
+
     <Message Importance="High" Text="$(NewLine)" />
     <Message Importance="High" Text="-------------------------------------" />
     <Message Importance="High" Text="ExcludedCpp:"/>
@@ -38,7 +32,7 @@
     <Message Importance="High" Text="$(NewLine)" />
     <Message Importance="High" Text="ExcludedMoc:"/>
     <Message Importance="High" Text = "%(ExcludedMoc.Identity)"/>
-    
+
     <Message Importance="High" Text=  "$(NewLine)" />
     <Message Importance="High" Text = "CLCompile files:"/>
     <Message Importance="High" Text = "%(ClCompile.Identity)"/>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.33130.400
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34018.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Console", "Console\Console.vcxproj", "{B661ACB3-8FB1-42A7-B60D-02CC15DDE98C}"
 EndProject
@@ -30,6 +30,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "App_DxMultioutput", "App_DxMultioutput\App_DxMultioutput.vcxproj", "{1757D1A9-9FCA-4E10-AA22-CC0153BD95DC}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleApp", "SimpleApp\SimpleApp.vcxproj", "{048D6A8F-4CA3-45FA-9749-1D3F7E60D449}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleApp_Qt6", "SimpleApp_Qt6\SimpleApp_Qt6.vcxproj", "{C5E4F758-ABE3-4EBD-B425-47A80751D59D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{048D6A8F-4CA3-45FA-9749-1D3F7E60D449}.Debug|x64.Build.0 = Debug|x64
 		{048D6A8F-4CA3-45FA-9749-1D3F7E60D449}.Release|x64.ActiveCfg = Release|x64
 		{048D6A8F-4CA3-45FA-9749-1D3F7E60D449}.Release|x64.Build.0 = Release|x64
+		{C5E4F758-ABE3-4EBD-B425-47A80751D59D}.Debug|x64.ActiveCfg = Debug|x64
+		{C5E4F758-ABE3-4EBD-B425-47A80751D59D}.Debug|x64.Build.0 = Debug|x64
+		{C5E4F758-ABE3-4EBD-B425-47A80751D59D}.Release|x64.ActiveCfg = Release|x64
+		{C5E4F758-ABE3-4EBD-B425-47A80751D59D}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
