@@ -32,10 +32,13 @@
     <ClCompile Include="[6] Image to base64\main.cpp" />
     <ClCompile Include="[6] Image to base64\MainWindow.cpp" />
     <ClCompile Include="[7] Json mapper\main.cpp" />
+    <ClCompile Include="[8] Desktop window\DesktopWindow.cpp" />
+    <ClCompile Include="[8] Desktop window\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HelpersQt.h" />
     <ClInclude Include="[1] Console language problem\MainWindow.h" />
+    <QtMoc Include="[8] Desktop window\DesktopWindow.h" />
     <QtMoc Include="[6] Image to base64\MainWindow.h" />
     <QtMoc Include="[2] Layouts\MainWindow.h" />
     <QtMoc Include="[3] Connect expired ptr\MainWindow.h" />

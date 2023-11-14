@@ -26,6 +26,9 @@
     <Filter Include="Source Files\[7] Json mapper">
       <UniqueIdentifier>{1e58142a-8c4a-40d5-9d7a-e1f56b3b7731}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\[8] Desktop window">
+      <UniqueIdentifier>{2015e113-c2ef-467a-b61f-4dbe762b8424}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleApp_IncludeToCompile.targets" />
@@ -85,6 +88,12 @@
     <ClCompile Include="[7] Json mapper\main.cpp">
       <Filter>Source Files\[7] Json mapper</Filter>
     </ClCompile>
+    <ClCompile Include="[8] Desktop window\DesktopWindow.cpp">
+      <Filter>Source Files\[8] Desktop window</Filter>
+    </ClCompile>
+    <ClCompile Include="[8] Desktop window\main.cpp">
+      <Filter>Source Files\[8] Desktop window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HelpersQt.h">
@@ -119,6 +128,9 @@
     </QtMoc>
     <QtMoc Include="[6] Image to base64\MainWindow.h">
       <Filter>Source Files\[6] Image to base64</Filter>
+    </QtMoc>
+    <QtMoc Include="[8] Desktop window\DesktopWindow.h">
+      <Filter>Source Files\[8] Desktop window</Filter>
     </QtMoc>
   </ItemGroup>
 </Project>

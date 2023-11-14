@@ -7,8 +7,8 @@
   <!-- Force rewrite needed sub system -->
   <ItemDefinitionGroup>
     <Link>
-      <!--<SubSystem>Windows</SubSystem>-->
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
+      <!--<SubSystem>Console</SubSystem>-->
     </Link>
   </ItemDefinitionGroup>
 
@@ -22,7 +22,8 @@
       <ExcludedDirsFromBuild Include="[4] Loader" />
       <ExcludedDirsFromBuild Include="[5] StyleSheets" />
       <ExcludedDirsFromBuild Include="[6] Image to base64" />
-      <!--<ExcludedDirsFromBuild Include="[7] Json mapper" />-->
+      <ExcludedDirsFromBuild Include="[7] Json mapper" />
+      <!--<ExcludedDirsFromBuild Include="[8] Desktop window" />-->
       
       <ExcludedCpp Include="%(ExcludedDirsFromBuild.Identity)\*.cpp"/>
       <ExcludedMoc Include="%(ExcludedDirsFromBuild.Identity)\*.h"/>
