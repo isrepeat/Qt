@@ -32,12 +32,38 @@
     <ClCompile Include="[6] Image to base64\main.cpp" />
     <ClCompile Include="[6] Image to base64\MainWindow.cpp" />
     <ClCompile Include="[7] Json mapper\main.cpp" />
+    <ClCompile Include="[8] Desktop window\Concurrency.cpp" />
+    <ClCompile Include="[8] Desktop window\CursorMapper.cpp" />
     <ClCompile Include="[8] Desktop window\DesktopWindow.cpp" />
+    <ClCompile Include="[8] Desktop window\Direct2DRenderer.cpp" />
+    <ClCompile Include="[8] Desktop window\FrameConfigurationData.cpp" />
+    <ClCompile Include="[8] Desktop window\Helpers.cpp" />
     <ClCompile Include="[8] Desktop window\main.cpp" />
+    <ClCompile Include="[8] Desktop window\RenderingNode.cpp" />
+    <ClCompile Include="[8] Desktop window\System.cpp" />
+    <ClCompile Include="[8] Desktop window\Thread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HelpersQt.h" />
     <ClInclude Include="[1] Console language problem\MainWindow.h" />
+    <ClInclude Include="[8] Desktop window\Bimap.hpp" />
+    <ClInclude Include="[8] Desktop window\Concurrency.h" />
+    <ClInclude Include="[8] Desktop window\CursorInfo.h" />
+    <ClInclude Include="[8] Desktop window\CursorMapper.h" />
+    <ClInclude Include="[8] Desktop window\Direct2DRenderer.h" />
+    <ClInclude Include="[8] Desktop window\Exception.h" />
+    <ClInclude Include="[8] Desktop window\Frame.h" />
+    <ClInclude Include="[8] Desktop window\FrameConfigurationData.h" />
+    <ClInclude Include="[8] Desktop window\FunctionTraits.hpp" />
+    <ClInclude Include="[8] Desktop window\Helpers.h" />
+    <ClInclude Include="[8] Desktop window\HWindows.h" />
+    <ClInclude Include="[8] Desktop window\IRenderer.h" />
+    <ClInclude Include="[8] Desktop window\Macros.h" />
+    <ClInclude Include="[8] Desktop window\RenderingNode.h" />
+    <ClInclude Include="[8] Desktop window\Size.h" />
+    <ClInclude Include="[8] Desktop window\System.h" />
+    <ClInclude Include="[8] Desktop window\Thread.h" />
+    <ClInclude Include="[8] Desktop window\TypeTraits.hpp" />
     <QtMoc Include="[8] Desktop window\DesktopWindow.h" />
     <QtMoc Include="[6] Image to base64\MainWindow.h" />
     <QtMoc Include="[2] Layouts\MainWindow.h" />
@@ -52,8 +78,8 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{048D6A8F-4CA3-45FA-9749-1D3F7E60D449}</ProjectGuid>
     <Keyword>QtVS_v304</Keyword>
-    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0.19041.0</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.19041.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0</WindowsTargetPlatformVersion>
     <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -105,7 +131,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories);$(Qt_INCLUDEPATH_)</AdditionalIncludeDirectories>
     </ClCompile>
     <QtMoc>
@@ -114,7 +140,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir);</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
