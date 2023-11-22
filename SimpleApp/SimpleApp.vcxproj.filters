@@ -32,14 +32,14 @@
     <Filter Include="Source Files\[8] Desktop window\Test rendering node">
       <UniqueIdentifier>{3e79b1ec-a41e-4fd2-8893-e9a881635dab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\[9] Qt Connection Manager">
+      <UniqueIdentifier>{09edd83c-a688-4327-85db-e443a1e363a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleApp_IncludeToCompile.targets" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="HelpersQt.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="[2] Layouts\MainWindow.cpp">
       <Filter>Source Files\[2] Layouts</Filter>
     </ClCompile>
@@ -121,11 +121,14 @@
     <ClCompile Include="[8] Desktop window\Thread.cpp">
       <Filter>Source Files\[8] Desktop window\Test rendering node</Filter>
     </ClCompile>
+    <ClCompile Include="HelpersQt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="[9] Qt Connection Manager\main.cpp">
+      <Filter>Source Files\[9] Qt Connection Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="HelpersQt.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="[1] Console language problem\MainWindow.h">
       <Filter>Source Files\[1] Console language problem</Filter>
     </ClInclude>
@@ -183,6 +186,12 @@
     <ClInclude Include="[8] Desktop window\TypeTraits.hpp">
       <Filter>Source Files\[8] Desktop window\Test rendering node</Filter>
     </ClInclude>
+    <ClInclude Include="HelpersQt.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="[9] Qt Connection Manager\QtConnection.h">
+      <Filter>Source Files\[9] Qt Connection Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="[2] Layouts\MainWindow.h">
@@ -214,6 +223,12 @@
     </QtMoc>
     <QtMoc Include="[4] Loader\MainWindow.h">
       <Filter>Source Files\[4] Loader</Filter>
+    </QtMoc>
+    <QtMoc Include="[9] Qt Connection Manager\QtConnectionManager.h">
+      <Filter>Source Files\[9] Qt Connection Manager</Filter>
+    </QtMoc>
+    <QtMoc Include="[9] Qt Connection Manager\TestClasses.h">
+      <Filter>Source Files\[9] Qt Connection Manager</Filter>
     </QtMoc>
   </ItemGroup>
 </Project>

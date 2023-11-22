@@ -42,6 +42,12 @@
     <ClCompile Include="[8] Desktop window\RenderingNode.cpp" />
     <ClCompile Include="[8] Desktop window\System.cpp" />
     <ClCompile Include="[8] Desktop window\Thread.cpp" />
+    <ClCompile Include="[9] Qt Connection Manager\main.cpp">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).moc</QtMocFileName>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HelpersQt.h" />
@@ -64,6 +70,9 @@
     <ClInclude Include="[8] Desktop window\System.h" />
     <ClInclude Include="[8] Desktop window\Thread.h" />
     <ClInclude Include="[8] Desktop window\TypeTraits.hpp" />
+    <ClInclude Include="[9] Qt Connection Manager\QtConnection.h" />
+    <QtMoc Include="[9] Qt Connection Manager\TestClasses.h" />
+    <QtMoc Include="[9] Qt Connection Manager\QtConnectionManager.h" />
     <QtMoc Include="[8] Desktop window\DesktopWindow.h" />
     <QtMoc Include="[6] Image to base64\MainWindow.h" />
     <QtMoc Include="[2] Layouts\MainWindow.h" />

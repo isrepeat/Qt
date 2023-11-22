@@ -23,7 +23,8 @@
       <ExcludedDirsFromBuild Include="[5] StyleSheets" />
       <ExcludedDirsFromBuild Include="[6] Image to base64" />
       <ExcludedDirsFromBuild Include="[7] Json mapper" />
-      <!--<ExcludedDirsFromBuild Include="[8] Desktop window" />-->
+      <ExcludedDirsFromBuild Include="[8] Desktop window" />
+      <!--<ExcludedDirsFromBuild Include="[9] Qt Connection Manager" />-->
       
       <ExcludedCpp Include="%(ExcludedDirsFromBuild.Identity)\*.cpp"/>
       <ExcludedMoc Include="%(ExcludedDirsFromBuild.Identity)\*.h"/>
