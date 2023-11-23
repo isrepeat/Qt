@@ -1,48 +1,6 @@
 #pragma once
 #include <QObject>
-
-template <typename ReturnType, typename ClassType, typename... Args>
-struct _FunctionTraitsBase {
-	enum {
-		ArgumentCount = sizeof...(Args)
-	};
-	static constexpr bool IsPointerToMemberFunction = !std::is_same_v<ClassType, void>;
-
-	using Ret = ReturnType;
-	using Class = ClassType;
-	using Function = Ret(Class::*) (Args...);
-	using Arguments = std::tuple<Args...>;
-
-	template <size_t i>
-	struct arg {
-		using type = typename std::tuple_element<i, std::tuple<Args...>>::type;
-		// the i-th argument is equivalent to the i-th tuple element of a tuple
-		// composed of those arguments.
-	};
-};
-
-
-// Matches when T=lambda or T=Functor
-// For generic types, directly use the result of the signature of its 'operator()'
-template <typename T>
-struct FunctionTraits : public FunctionTraits<decltype(&T::operator())>
-{};
-
-// For Functor L-value or R-value
-template <typename R, typename C, typename... A>
-struct FunctionTraits<R(C::*)(A...)> : public _FunctionTraitsBase<R, C, A...>
-{};
-
-// For lambdas (need const)
-template <typename R, typename C, typename... A>
-struct FunctionTraits<R(C::*)(A...) const> : public _FunctionTraitsBase<R, C, A...>
-{};
-
-// For C-style functions
-template <typename R, typename... A>
-struct FunctionTraits<R(*)(A...)> : public _FunctionTraitsBase<R, void, A...>
-{};
-
+#include <Helpers.h>
 
 /// <summary>
 /// Class provides BaseSignal struct and Connect(...) method to connect typical qt signal by specified connection type.
@@ -104,30 +62,44 @@ private:
 
 
 namespace Hqt {
-	enum class ConnectFlags {
+	enum ConnectFlags { // declare without 'class' to simplify flags concatenation
 		None = 0x00,
-		DisconnectAfterInvoke = 0x01,
+		AutoDisconnect = 0x01,
+		// Here may be flags associated with "optional value"
 	};
 
-	// connect to lambda [implementation]
-	template <typename TObject, typename R, typename... A, typename Fn>
-	void ConnectInternal(TObject* sender, R(TObject::* signal)(A...), const QObject* context, Fn lambda, Qt::ConnectionType cType, ConnectFlags cFlags) {
-		QObject::connect(sender, signal, context ? context : sender, [=](A... args) {
-			if (cFlags == ConnectFlags::DisconnectAfterInvoke) {
+	// Connect to lambda [implementation]
+	template <typename TObject, typename R, typename... A, typename Fn, typename TOptional>
+	void ConnectInternal(TObject* sender, R(TObject::* signal)(A...), const QObject* context, Fn lambda,
+		Qt::ConnectionType cType, H::Flags<ConnectFlags> cFlags, TOptional&& optionalValue)
+	{
+		auto moveLambda = H::create_move_lambda(std::move(optionalValue), [sender, signal, lambda, cFlags](H::moved_value<TOptional> movedOptValueRef, A... args) {
+			auto optValue = std::move(movedOptValueRef.get()); // it may be custom type that use RAII idiom
+
+			if (cFlags & ConnectFlags::AutoDisconnect) {
 				QObject::disconnect(sender, signal, nullptr, nullptr);
 			}
 			return lambda(std::forward<A>(args)...);
-			}, cType);
+			});
+
+		QObject::connect(sender, signal, context ? context : sender, std::move(moveLambda), cType);
 	}
 
-	// connect to lambda [wrapper to expand TSignal]
-	template <typename TObject, typename TSignal, typename Fn>
+	// Connect to lambda [wrapper to expand TSignal]
+	template <typename TObject, typename TSignal, typename Fn, typename TOptional = void*>
 	void Connect(TObject* sender, TSignal signal, const QObject* context, Fn lambda,
-		Qt::ConnectionType cType = Qt::ConnectionType::AutoConnection, ConnectFlags cFlags = ConnectFlags::None)
+		Qt::ConnectionType cType = Qt::ConnectionType::AutoConnection, H::Flags<ConnectFlags> cFlags = ConnectFlags::None, TOptional&& optionalValue = nullptr)
 	{
 		// NOTE: 
 		// - FunctionPointer<TSignal>::Object - get real function member owner.
 		// - Not pass TSignal explicitly to avoid compile errors (TObject may be ambiguous).
-		ConnectInternal<typename QtPrivate::FunctionPointer<TSignal>::Object>(sender, signal, context, lambda, cType, cFlags);
+		ConnectInternal<typename QtPrivate::FunctionPointer<TSignal>::Object>(sender, signal, context, lambda, cType, cFlags, std::forward<TOptional&&>(optionalValue));
+	}
+
+	template <typename TObject, typename TSignal, typename Fn, typename TOptional = void*>
+	void ConnectOnce(TObject* sender, TSignal signal, const QObject* context, Fn lambda,
+		Qt::ConnectionType cType = Qt::ConnectionType::AutoConnection, H::Flags<ConnectFlags> cFlags = ConnectFlags::None, TOptional&& optionalValue = nullptr)
+	{
+		ConnectInternal<typename QtPrivate::FunctionPointer<TSignal>::Object>(sender, signal, context, lambda, cType, cFlags | ConnectFlags::AutoDisconnect, std::forward<TOptional&&>(optionalValue));
 	}
 }

@@ -1,6 +1,18 @@
 #pragma once
 #include <QObject>
 
+struct MovableStruct {
+    MovableStruct() 
+        : data{1234} 
+    {};
+    ~MovableStruct() {
+    };
+
+private:
+    int data;
+};
+
+
 class Sender : public QObject {
     Q_OBJECT;
 public:

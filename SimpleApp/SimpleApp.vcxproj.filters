@@ -127,6 +127,9 @@
     <ClCompile Include="[9] Qt Connection Manager\main.cpp">
       <Filter>Source Files\[9] Qt Connection Manager</Filter>
     </ClCompile>
+    <ClCompile Include="Helpers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="[1] Console language problem\MainWindow.h">
@@ -191,6 +194,9 @@
     </ClInclude>
     <ClInclude Include="[9] Qt Connection Manager\QtConnection.h">
       <Filter>Source Files\[9] Qt Connection Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
